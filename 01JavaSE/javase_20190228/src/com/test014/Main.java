@@ -5,7 +5,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		int count = 2;
+		int count = 3;
 		int idx = 0;
 		Score[] s = new Score[count];
 		Scanner sc = new Scanner(System.in);
