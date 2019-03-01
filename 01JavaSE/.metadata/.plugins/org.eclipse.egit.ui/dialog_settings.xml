@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/ChanWooP/ChanWooP.git"/>
+		<item value="https://github.com/ChanWooP/Storys.git"/>
+		<item value="https://github.com/ChanWooP/ChanWooP"/>
+		<item value="https://github.com/ChanWooP/Program.git"/>
+		<item value="https://github.com/ChanWooP/hello_github.git"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+	</list>
+	<list key="CommitDialog.authorValues">
+		<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
+	</list>
+	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
+		<item value="666" key="DIALOG_WIDTH"/>
+		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
+		<item value="458" key="DIALOG_HEIGHT"/>
+		<item value="475" key="DIALOG_X_ORIGIN"/>
+		<item value="133" key="DIALOG_Y_ORIGIN"/>
+		<list key="sashWeights">
+			<item value="600"/>
+			<item value="400"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item value="649" key="DIALOG_X_ORIGIN"/>
+		<item value="311" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="C:\workspace\01JavaSE\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\qkrck\git\hello_github\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\workspace\01JavaSE\Storys\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\qkrck\git\repository\.git">
+			<item value="false"/>
+			<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
+			<item value="# WARNING: head commit changed in the meantime&#x0D;&#x0A;&#x0D;&#x0A;a"/>
+			<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
+			<item value="0000000000000000000000000000000000000000"/>
+			<item value="0"/>
+		</list>
+		<list key="C:\git\hello_github\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\git\ChanWooP\01JavaSE\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\qkrck\git\Program\s\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\qkrck\git\Program\.git">
+			<item value="empty"/>
+		</list>
+	</section>
+	<section name="GitCreatePatchWizard">
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item value="500,500" key="STAGING_SASH_FORM_WEIGHT"/>
+		<item value="false" key="sortItemState"/>
+		<item value="500,500" key="HORIZONTAL_SASH_FORM_WEIGHT"/>
+	</section>
+</section>
