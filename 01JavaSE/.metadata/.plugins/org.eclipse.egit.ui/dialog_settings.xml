@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="0" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
 	<list key="RepositorySelectionPage.UsedUris">
 		<item value="https://github.com/ChanWooP/ChanWooP.git"/>
+		<item value="file:///C:\git\ChanWooP"/>
 		<item value="https://github.com/ChanWooP/Storys.git"/>
 		<item value="https://github.com/ChanWooP/ChanWooP"/>
 		<item value="https://github.com/ChanWooP/Program.git"/>
@@ -18,6 +20,8 @@
 	<list key="CommitDialog.committerValues">
 		<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
 	</list>
+	<section name="GitImportWizard">
+	</section>
 	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
 		<item value="666" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
