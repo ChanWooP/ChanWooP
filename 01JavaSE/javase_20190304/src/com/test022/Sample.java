@@ -6,7 +6,7 @@ public class Sample {
 	// 1-> 1
 	// 2-> 10
 	// 3-> 11
-	public String change(int n) {
+	public String change2(int n) {
 		String s = "";
 		while (true) {
 			if (n == 0)break;
@@ -15,6 +15,19 @@ public class Sample {
 			n = n / 2;
 		}
 		return s;
-
+	}
+	
+	public String change16(int n) {
+		String s = "";
+		String[] array = {"0","1","2","3","4","5","6","7",
+				"8","9","A","B","C","D","E","F"};
+		while(true) {
+			if(n == 0) break;
+			
+			s = array[(n % 16)] + s;
+			
+			n = n / 16;
+		}
+		return s;
 	}
 }

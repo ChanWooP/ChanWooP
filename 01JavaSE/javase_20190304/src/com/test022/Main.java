@@ -6,7 +6,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		Sample s = new Sample();
 		
-		System.out.printf("%s",s.change(31));
+		System.out.printf("%s%n",s.change2(31));
+		System.out.printf("%s%n",s.change16(20));
 	}
 
 }
