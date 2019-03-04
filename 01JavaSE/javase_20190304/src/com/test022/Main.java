@@ -7,7 +7,7 @@ public class Main {
 		Sample s = new Sample();
 		
 		System.out.printf("%s%n",s.change2(31));
-		System.out.printf("%s%n",s.change16(20));
+		System.out.printf("%s%n",s.change16(0));
 	}
 
 }
