@@ -41,6 +41,4 @@ public class Score {
 		this.name = name;
 	}
 	
-	
-	
 }
