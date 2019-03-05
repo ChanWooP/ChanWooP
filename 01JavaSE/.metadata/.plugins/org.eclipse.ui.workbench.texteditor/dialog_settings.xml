@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="count" key="selection"/>
+		<item value="String temp1 = &quot;&quot;;" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="String temp1 = &quot;&quot;;"/>
 			<item value="count"/>
 			<item value="for(int a=0;a&lt;arr2.length;++a) {"/>
 		</list>
