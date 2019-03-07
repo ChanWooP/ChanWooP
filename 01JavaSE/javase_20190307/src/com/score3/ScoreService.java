@@ -10,21 +10,46 @@ public class ScoreService {
 		if(dao.fullIdx()) {
 			System.out.println("저장소가 꽉찼습니다");
 		}else {
+			int sub1, sub2, sub3;
 			System.out.println("1. 성적정보입력");
 			System.out.println("---------------");
 			System.out.print("번호 : ");
 			String mid = sc.nextLine();
 			System.out.print("이름 : ");
 			String name = sc.nextLine();
-			System.out.print("과목1 : ");
-			int sub1 = sc.nextInt();
-			sc.nextLine();
-			System.out.print("과목2 : ");
-			int sub2 = sc.nextInt();
-			sc.nextLine();
-			System.out.print("과목3 : ");
-			int sub3 = sc.nextInt();
-			sc.nextLine();
+			
+			while(true) {
+				System.out.print("과목1 : ");
+				sub1 = sc.nextInt();
+				sc.nextLine();
+				if(sub1 >=  0 && sub1 <= 100) {
+					break;
+				}else {
+					System.out.println("과목점수는 0~100 사이로 입력해주세요");
+				}
+			}
+			
+			while(true) {
+				System.out.print("과목2 : ");
+				sub2 = sc.nextInt();
+				sc.nextLine();
+				if(sub2 >=  0 && sub2 <= 100) {
+					break;
+				}else {
+					System.out.println("과목점수는 0~100 사이로 입력해주세요");
+				}
+			}
+			
+			while(true) {
+				System.out.print("과목3 : ");
+				sub3 = sc.nextInt();
+				sc.nextLine();
+				if(sub3 >=  0 && sub3 <= 100) {
+					break;
+				}else {
+					System.out.println("과목점수는 0~100 사이로 입력해주세요");
+				}
+			}
 			
 			System.out.print("정말 입력하시겠습니까?(0/1)");
 			int choice = sc.nextInt();
