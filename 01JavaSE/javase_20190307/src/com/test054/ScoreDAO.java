@@ -1,27 +1,12 @@
 package com.test054;
 
 public class ScoreDAO {
-	private Score[] members = new Score[10];
+	private Score[] members = new Score[3];
 	private int idx = 0;
 	
-	public ScoreDAO() {
-		Score member = new Score("G001","홍길동",100, 100, 100);
-		this.members[idx] = member;
-		++idx;
-		
-		Score member2 = new Score("G002","일지매",90, 100, 100);
-		this.members[idx] = member2;
-		++idx;
-		
-		Score member3 = new Score("G003","박무봉",80, 100, 100);
-		this.members[idx] = member3;
-		++idx;
-	}
-	
 	//성적추가 메소드
-	public void add() {
-
-	
+	public void add(Score s) {
+		members[idx++] = s;
 	}
 	
 	//성적출력 메소드
@@ -59,7 +44,4 @@ public class ScoreDAO {
 		return this.idx == this.members.length;
 	}
 	
-	public int getIdx() {
-		return this.idx;
-	}
 }
