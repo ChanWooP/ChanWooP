@@ -1,4 +1,4 @@
-package com.test054;
+package com.score2;
 
 public class Score {
 	
