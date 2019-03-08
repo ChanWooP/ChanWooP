@@ -71,6 +71,8 @@ public class ScoreService {
 		Score[] list = dao.list();
 		int count = 0;
 		
+		System.out.println("2. 성적정보출력");
+		System.out.println("---------------");
 		System.out.println("번호 / 이름 / 과목1 / 과목2 / 과목3 / 총점 / 평균 / 석차");
 		for(Score m : list) {
 			if(m != null)
@@ -82,22 +84,85 @@ public class ScoreService {
 			}
 			
 		}
+		if(count == 0) {
+			System.out.println("자료가 없습니다.");
+		}
 		System.out.printf("총: %d건%n", count);
 	}
 	
 	//성적검색 메소드
 	public void menu03(Scanner sc) {
 		
+		while(true) {
+			System.out.println("3.성적정보검색");
+			System.out.println("--------------");
+			System.out.println("1.번호기준 2.이름기준");
+			System.out.print("선택>");
+			int choice = sc.nextInt();
+			sc.nextLine();
+			
+			if(choice == 0) break;
+			
+			switch(choice) {
+			case 1: menu03_1(sc); break;
+			case 2: menu03_2(sc); break;
+			}
+		}
+		
 	}
 	
 	//번호기준 메소드
 	public void menu03_1(Scanner sc) {
-
+		String key = "mid";
+		int count = 0;
+		System.out.print("검색>");
+		String value = sc.nextLine();
+		System.out.println("3.성적정보검색 / 1.번호기준");
+		System.out.println("---------------------------");
+		System.out.println("번호 / 이름 / 과목1 / 과목2 / 과목3 / 총점 / 평균 / 석차");
+		Score[] list = dao.list(key, value);
+		for(Score m : list) {
+			if(m != null)
+			{
+				System.out.printf("%4s / %3s / %3d / %3d / %3d / %3d / %5.1f / %2d%n"
+						,m.getMid(), m.getName(), m.getSub1(), m.getSub2(), m.getSub3()
+						,m.getTotal(), m.getAvg_(), m.getRank_());
+				++count;
+			}
+			
+		}
+		if(count == 0) {
+			System.out.println("자료가 없습니다.");
+		}
+		System.out.printf("총: %d건%n", count);
+		
 	}
 	
 	//아름기준 메소드
 	public void menu03_2(Scanner sc) {
-
+		String key = "name";
+		int count = 0;
+		System.out.print("검색>");
+		String value = sc.nextLine();
+		System.out.println("3.성적정보검색 / 2.이름기준");
+		System.out.println("---------------------------");
+		System.out.println("번호 / 이름 / 과목1 / 과목2 / 과목3 / 총점 / 평균 / 석차");
+		Score[] list = dao.list(key, value);
+		for(Score m : list) {
+			if(m != null)
+			{
+				System.out.printf("%4s / %3s / %3d / %3d / %3d / %3d / %5.1f / %2d%n"
+						,m.getMid(), m.getName(), m.getSub1(), m.getSub2(), m.getSub3()
+						,m.getTotal(), m.getAvg_(), m.getRank_());
+				++count;
+			}
+			
+		}
+		if(count == 0) {
+			System.out.println("자료가 없습니다.");
+		}
+		System.out.printf("총: %d건%n", count);
+		
 	}
 	
 	//출력 포맷 private 메소드

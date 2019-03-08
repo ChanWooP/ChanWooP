@@ -20,7 +20,38 @@ public class ScoreDAO {
 	
 	//성적검색 메소드
 	public Score[] list(String key, String value) {
-		return this.members;
+		rank_();
+		int idx = 0;
+		int count = 0;
+
+		Score[] remembers = null; 
+		
+		for(int a=0; a<this.idx; ++a) {
+			if(key == "mid") {
+				if(members[a].getMid().equals(value)) {
+					++count;
+				}
+			}else if(key == "name") {
+				if(members[a].getName().contains(value)) {
+					++count;
+				}
+			}
+		}
+		
+		remembers = new Score[count];
+		
+		for(int a=0; a<this.idx; ++a) {
+			if(key == "mid") {
+				if(members[a].getMid().equals(value)) {
+					remembers[idx++] = members[a];
+				}
+			}else if(key == "name") {
+				if(members[a].getName().contains(value)) {
+					remembers[idx++] = members[a];
+				}
+			}
+		}
+		return remembers;
 	}
 	
 	//석차입력 메소드
