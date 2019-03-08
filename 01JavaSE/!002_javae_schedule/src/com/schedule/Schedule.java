@@ -31,11 +31,11 @@ public class Schedule {
 		this.sid = sid;
 	}
 	
-	public String getDate_() {
+	public String getWdate() {
 		return wdate;
 	}
 	
-	public void setDate_(String wdate) {
+	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
 	

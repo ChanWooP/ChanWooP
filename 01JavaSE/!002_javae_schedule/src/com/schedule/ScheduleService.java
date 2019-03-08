@@ -5,9 +5,27 @@ import java.util.Scanner;
 public class ScheduleService {
 	
 	private ScheduleDAO dao = new ScheduleDAO();
+	private int counts = 0;
 	
 	public void menu01(Scanner sc) {
+		String sid = "S"+counts;
+		++counts;
+		System.out.println("1.일정 입력");
+		System.out.print("날짜(YYYY-MM-DD)>");
+		String date = sc.nextLine();
+		System.out.print("내용(200자이내)?");
+		String content = sc.nextLine();
+		System.out.print("정말 입력하시겠습니까(0/1)>");
+		int choice = sc.nextInt();
 		
+		if(choice == 1) {
+			Schedule schedule = new Schedule(sid, date, content);
+			dao.add(schedule);
+			
+			System.out.println("입력이 완료되었습니다");
+		}else {
+			System.out.println("입력이 취소되었습니다");
+		}
 	}
 
 	public void menu02(Scanner sc) {
@@ -34,31 +52,41 @@ public class ScheduleService {
 	
 	public void menu02_1(Scanner sc) {
 		System.out.println("2.일정 출력 및 검색 / 1.오늘일정");
-		System.out.println("--------------------------------");
 	}
 	
 	public void menu02_2(Scanner sc) {
 		System.out.println("2.일정 출력 및 검색 / 2.특정일일정");
-		System.out.println("--------------------------------");
 	}
 	
 	public void menu02_3(Scanner sc) {
 		System.out.println("2.일정 출력 및 검색 / 3.특정월일정");
-		System.out.println("--------------------------------");
 	}
 	
 	public void menu02_4(Scanner sc) {
 		System.out.println("2.일정 출력 및 검색 / 4.특정단어포함일정");
-		System.out.println("--------------------------------");
 	}
 	
 	public void menu02_5(Scanner sc) {
+		String key = "all";
+		String value = null;
+		Schedule[] list = this.dao.list(key, value);
+		
 		System.out.println("2.일정 출력 및 검색 / 5.전체일정");
-		System.out.println("--------------------------------");
+		print_(list);
 	}
 	
-	public void print_(Schedule[] list) {
+	public void print_(Schedule[] list) { 
+		int count = 0;
 		
+		System.out.println("--------------------------------");
+		System.out.println("번호 / 날짜 / 내용");
+		for(Schedule s : list) {
+			if(s != null) {
+				System.out.println(s.toString());
+				++count;
+			}
+		}
+		System.out.printf("총 %d건%n",count);
 	}
 
 }
