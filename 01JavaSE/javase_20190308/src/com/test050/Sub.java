@@ -1,9 +1,6 @@
 package com.test050;
 
+//자식클래스 
 public class Sub extends Sample{
-	
-	public void method2() {
-		System.out.println("자식역할");
-	}
 	
 }

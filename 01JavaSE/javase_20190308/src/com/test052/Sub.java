@@ -6,5 +6,4 @@ public class Sub extends Sample{
 		super(1);
 		System.out.println("자식생성");
 	}
-	
 }

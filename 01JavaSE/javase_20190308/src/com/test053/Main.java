@@ -1,11 +1,10 @@
-package com.test050;
+package com.test053;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Sub sub = new Sub();
-		
-		sub.protectedMethod();
+		// TODO Auto-generated method stub
+
 	}
 
 }
