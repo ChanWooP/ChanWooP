@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
+		
 		ScheduleService service = new ScheduleService();
 		Scanner sc = new Scanner(System.in);
 		
@@ -16,11 +17,15 @@ public class Main {
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
+			if(choice == 0) break;
+			
 			switch(choice) {
 			case 1: service.menu01(sc); break;
 			case 2: service.menu02(sc); break;
 			}
 		}
+		System.out.println("프로그램 종료!");
+		sc.close();
 	}
 
 
