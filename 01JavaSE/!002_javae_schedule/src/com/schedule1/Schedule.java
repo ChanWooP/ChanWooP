@@ -1,4 +1,4 @@
-package com.schedule;
+package com.schedule1;
 
 public class Schedule {
 	

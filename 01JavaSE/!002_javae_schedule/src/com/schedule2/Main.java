@@ -1,4 +1,4 @@
-package com.schedule;
+package com.schedule2;
 
 import java.util.Scanner;
 

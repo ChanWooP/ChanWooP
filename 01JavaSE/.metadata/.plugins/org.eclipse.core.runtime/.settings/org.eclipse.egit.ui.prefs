@@ -1,4 +1,4 @@
-commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>\u3141</message>\r\n<message>s</message>\r\n<message>a</message>\r\n<message>zs</message>\r\n<message>\u3134\u3141</message>\r\n<message>q</message>\r\n<message>\u3134</message>\r\n<message>\u3142</message>\r\n<message>S</message>\r\n<message>A</message>\r\n</messages>
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>a</message>\r\n<message>s</message>\r\n<message>sa</message>\r\n<message>\u3141</message>\r\n<message>zs</message>\r\n<message>\u3134\u3141</message>\r\n<message>q</message>\r\n<message>\u3134</message>\r\n<message>\u3142</message>\r\n<message>S</message>\r\n</messages>
 eclipse.preferences.version=1
 resourcehistory_graph_split=500,500
 resourcehistory_rev_split=700,300

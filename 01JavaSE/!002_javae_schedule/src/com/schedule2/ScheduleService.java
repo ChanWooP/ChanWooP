@@ -1,15 +1,16 @@
-package com.schedule;
+package com.schedule2;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ScheduleService {
 	
 	private ScheduleDAO dao = new ScheduleDAO();
-	private int counts = 0;
+	private SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	private Date date = new Date();
 	
 	public void menu01(Scanner sc) {
-		String sid = "S"+counts;
-		++counts;
 		System.out.println("1.일정 입력");
 		System.out.print("날짜(YYYY-MM-DD)>");
 		String date = sc.nextLine();
@@ -19,7 +20,7 @@ public class ScheduleService {
 		int choice = sc.nextInt();
 		
 		if(choice == 1) {
-			Schedule schedule = new Schedule(sid, date, content);
+			Schedule schedule = new Schedule(date, content);
 			dao.add(schedule);
 			
 			System.out.println("입력이 완료되었습니다");
@@ -51,19 +52,42 @@ public class ScheduleService {
 	}
 	
 	public void menu02_1(Scanner sc) {
+		String key = "today";
+		String value = format1.format(date);
+		Schedule[] list = this.dao.list(key, value);
+		
 		System.out.println("2.일정 출력 및 검색 / 1.오늘일정");
+		print_(list);
 	}
 	
 	public void menu02_2(Scanner sc) {
+		String key = "getday";
+		System.out.print("특정일(yyyy-MM-dd)>");
+		String value = sc.nextLine();
+		Schedule[] list = this.dao.list(key, value);
+		
 		System.out.println("2.일정 출력 및 검색 / 2.특정일일정");
+		print_(list);
 	}
 	
 	public void menu02_3(Scanner sc) {
+		String key = "getmonth";
+		System.out.print("특정월(yyyy-MM)>");
+		String value = sc.nextLine();
+		Schedule[] list = this.dao.list(key, value);
+		
 		System.out.println("2.일정 출력 및 검색 / 3.특정월일정");
+		print_(list);
 	}
 	
 	public void menu02_4(Scanner sc) {
+		String key = "getdan";
+		System.out.print("특정단어>");
+		String value = sc.nextLine();
+		Schedule[] list = this.dao.list(key, value);
+		
 		System.out.println("2.일정 출력 및 검색 / 4.특정단어포함일정");
+		print_(list);
 	}
 	
 	public void menu02_5(Scanner sc) {
