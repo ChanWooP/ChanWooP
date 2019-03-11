@@ -1,8 +1,5 @@
 package com.schedule2;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class ScheduleDAO {
 	
 	//배열 저장소 준비
