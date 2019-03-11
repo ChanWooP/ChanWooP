@@ -1,5 +1,8 @@
 package com.schedule3;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class ScheduleDAO {
 	
 	//배열 저장소 준비
@@ -27,15 +30,17 @@ public class ScheduleDAO {
 	public Schedule[] list(String key, String value) {
 		Schedule[] temp = new Schedule[this.idx];
 		
-        for(int a=0; a<this.idx; ++a) {
-        	for(int b=a; b<this.idx; ++b) {
-        		if(this.schedules[a].getWdate().compareTo(this.schedules[b].getWdate())>0) {
-        			Schedule s = this.schedules[a];
-        			this.schedules[a] = this.schedules[b];
-        			this.schedules[b] = s;
-        		}
-        	}
-        }
+        //for(int a=0; a<this.idx; ++a) {
+        //	for(int b=a; b<this.idx; ++b) {
+        //		if(this.schedules[a].getWdate().compareTo(this.schedules[b].getWdate())>0) {
+        //			Schedule s = this.schedules[a];
+        //			this.schedules[a] = this.schedules[b];
+        //			this.schedules[b] = s;
+        //		}
+        //	}
+        //}
+		
+		sort();
 		
 		int b = 0;
 		for(int a=0; a<this.idx; ++a, ++b) {
@@ -66,6 +71,15 @@ public class ScheduleDAO {
 			
 		}
 		return temp;
+	}
+	
+	private void sort() {
+		Arrays.sort(this.schedules, new Comparator<Schedule>() {
+			public int compare(Schedule s1, Schedule s2) {
+				if(s1 == null || s2 == null) return 0;
+				return s1.getWdate().compareTo(s2.getWdate());
+			}
+		});
 	}
 	
 }

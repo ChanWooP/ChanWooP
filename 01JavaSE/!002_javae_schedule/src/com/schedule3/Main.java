@@ -24,7 +24,7 @@ public class Main {
 			case 2: service.menu02(sc); break;
 			}
 		}
-		System.out.println("프로그램 종료!");
+		System.out.println("프로그램 종료!!");
 		sc.close();
 	}
 
