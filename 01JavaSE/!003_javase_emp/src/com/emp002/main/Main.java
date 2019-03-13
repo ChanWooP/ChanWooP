@@ -1,6 +1,8 @@
 package com.emp002.main;
 
 import java.util.Scanner;
+
+import com.emp002.service.EmployeeService;
 import com.emp002.service.SubService;;
 
 public class Main {
@@ -8,6 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		SubService subMenu = new SubService();
+		EmployeeService serviceE = new EmployeeService();
 		
 		while(true) {
 			System.out.println("직원 관리v1.0");
@@ -20,7 +23,7 @@ public class Main {
 			if(choice == 0) break;
 			
 			switch(choice) {
-			case 1: break;
+			case 1: serviceE.main(sc); break;
 			case 2: subMenu.menu(sc); break;
 			}
 		}
