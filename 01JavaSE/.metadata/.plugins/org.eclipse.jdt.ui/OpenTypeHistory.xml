@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=javase_20190312/src&lt;com.test071{Sample.java[Sample" modifiers="513" timestamp="1552353793162"/>
+<typeInfo handle="=javase_20190312/src&lt;com.test071{Sample2.java[Sample2" modifiers="513" timestamp="1552353783764"/>
+<typeInfo handle="=javase_20190312/src&lt;com.test071{Sample3.java[Sample3" modifiers="513" timestamp="1552353824280"/>
+</typeInfoHistroy>
