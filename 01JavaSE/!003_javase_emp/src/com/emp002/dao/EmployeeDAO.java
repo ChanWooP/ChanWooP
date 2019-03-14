@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
 import com.emp002.domain.Employee;
+import com.emp002.dao.RegionDAO;
+import com.emp002.domain.Region;
 
 public class EmployeeDAO {
 	private List<Employee> employees = new ArrayList<Employee>();
@@ -81,5 +84,13 @@ public class EmployeeDAO {
 		
 		return temp;
 	}
+	
+	//지역명 검색 메소드
+	//지역번호 제공 -> 지역명 반환
+	/*
+	 * public String regName(String regId) { String regName = null; for(Region r :
+	 * this.regions) { if(r.getRegNum().equals(regId)) { regName = r.getRegName(); }
+	 * } return regName; }
+	 */
 	
 }

@@ -28,6 +28,23 @@ public class Employee {
 		this.basicpay = basicpay;
 		this.extrapay = extrapay;
 	}
+	
+	public Employee(String empId, String empName, String ssn, String hiredate, String phone, String regId,
+			String deptId, String posId, String regName, String deptName, String posName, int basicpay, int extrapay) {
+		this.empId = empId;
+		this.empName = empName;
+		this.ssn = ssn;
+		this.hiredate = hiredate;
+		this.phone = phone;
+		this.regId = regId;
+		this.deptId = deptId;
+		this.posId = posId;
+		this.regName = regName;
+		this.deptName = deptName;
+		this.posName = posName;
+		this.basicpay = basicpay;
+		this.extrapay = extrapay;
+	}
 
 	public String getEmpId() {
 		return empId;
