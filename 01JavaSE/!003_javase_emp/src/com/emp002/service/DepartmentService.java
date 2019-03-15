@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class DepartmentService {
 	private DepartmentDAO dao = new DepartmentDAO();
+	
+	public DepartmentService(DepartmentDAO daoD) {
+		this.dao = daoD;
+	}
 
 	public void menu(Scanner sc) {
 		while(true) {

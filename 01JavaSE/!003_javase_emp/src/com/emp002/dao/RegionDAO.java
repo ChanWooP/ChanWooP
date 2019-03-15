@@ -45,4 +45,15 @@ public class RegionDAO {
 		return temp;
 	}
 	
+	//지역명 검색 메소드
+	//지역번호 제공 -> 지역명 반환
+	public String getRegName(String regId) {
+		String regName = null;
+		for(Region r : this.regions) {
+			if(r.getRegNum().equals(regId)) {
+				regName = r.getRegName();
+			}
+		}
+		return regName;
+	}
 }

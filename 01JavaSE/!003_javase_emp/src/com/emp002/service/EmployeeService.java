@@ -3,11 +3,20 @@ package com.emp002.service;
 import java.util.List;
 import java.util.Scanner;
 
-import com.emp002.dao.EmployeeDAO;
-import com.emp002.domain.Employee;
+import com.emp002.domain.*;
+import com.emp002.dao.*;
 
 public class EmployeeService {
 	EmployeeDAO dao = new EmployeeDAO();
+	RegionDAO daoR;
+	DepartmentDAO daoD;
+	PositionDAO daoP;
+	
+	public EmployeeService(RegionDAO daoR, DepartmentDAO daoD, PositionDAO daoP) {
+		this.daoR = daoR;
+		this.daoD = daoD;
+		this.daoP = daoP;
+	}
 	
 	public void main(Scanner sc) {
 		while (true) {
@@ -32,7 +41,99 @@ public class EmployeeService {
 	}
 
 	private void menu1_1(Scanner sc) {
-		// TODO Auto-generated method stub
+		
+		String empId = dao.generateEid();
+		if(empId != null) {
+			//이름
+			System.out.print("이름>");
+			String empName = sc.nextLine();
+			//주민번호 - 패턴검사
+			System.out.print("주민번호>");
+			String ssn = sc.nextLine();
+			//입사일
+			System.out.print("입사일>");
+			String hiredate = sc.nextLine();
+			//전화번호 - 패턴검사
+			System.out.print("전화번호>");
+			String phone = sc.nextLine();
+			//지역번호 입력 및 지역명 확인
+			List<Region> rlist = this.daoR.list();
+			System.out.println("지역");
+			System.out.println("----");
+			for(Region r : rlist) {
+				System.out.println(r.toString());
+			}
+			String regId = null;
+			String regName = null;
+			while(true) {
+				System.out.print("지역번호>");
+				regId = sc.nextLine();
+				regName = this.daoR.getRegName(regId);
+				if(regName == null) {
+					System.out.println("잘못된 입력입니다");
+				}else {
+					break;
+				}
+			}
+			
+			List<Department> dlist = this.daoD.list();
+			System.out.println("부서");
+			System.out.println("----");
+			for(Department d : dlist) {
+				System.out.println(d.toString());
+			}
+			String deptId = null;
+			String deptName = null;
+			while(true) {
+				System.out.print("부서번호>");
+				deptId = sc.nextLine();
+				deptName = this.daoD.getDeptName(deptId);
+				if(deptName == null) {
+					System.out.println("잘못된 입력입니다");
+				}else {
+					break;
+				}
+			}
+			
+			List<Position> plist = this.daoP.list();
+			System.out.println("직위");
+			System.out.println("----");
+			for(Position p : plist) {
+				System.out.println(p.toString());
+			}
+			
+			String posId = null;
+			String posName = null;
+			int basicpay = 0;
+			int extrapay = 0;
+			while(true) {
+				System.out.print("직위번호>");
+				posId = sc.nextLine();
+				posName = this.daoP.getPosName(posId);
+				basicpay = this.daoP.getBasicPay(posId);
+				extrapay = this.daoP.getExtraPay(posId);
+				if(posName == null) {
+					System.out.println("잘못된 입력입니다");
+				}else {
+					break;
+				}
+				
+			}
+			System.out.print("정말 입력하시겠습니까?(0/1)");
+			int choice = sc.nextInt();
+			sc.nextLine();
+			if(choice == 1) {
+				Employee e = new Employee(empId, empName, ssn, hiredate, phone
+						,regId, deptId, posId, regName, deptName, posName
+						,basicpay, extrapay);
+				this.dao.add(e);
+			}else {
+				System.out.println("입력취소");
+			}
+			
+		}else {
+			System.out.println("입력이 불가능합니다");
+		}
 		
 	}
 

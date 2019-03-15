@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class PositionService {
 	private PositionDAO dao = new PositionDAO();
 	
+	public PositionService(PositionDAO daoP) {
+		this.dao = daoP;
+	}
+	
 	public void menu(Scanner sc) {
 		while(true) {
 			System.out.println("직원 관리v1.0 / 2.기초정보관리 / 3.직위관리");
@@ -37,11 +41,14 @@ public class PositionService {
 			System.out.print("기본급>");
 			int posMoney = sc.nextInt();
 			sc.nextLine();
+			System.out.print("보너스>");
+			int extraMoney = sc.nextInt();
+			sc.nextLine();
 			System.out.print("정말입력하시겠습니까?(0/1)>");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			if(choice == 1) {
-				Position position = new Position(posNum, posName, posMoney);
+				Position position = new Position(posNum, posName, posMoney, extraMoney);
 				this.dao.add(position);
 				System.out.println("입력완료!");
 			}else {
@@ -63,7 +70,7 @@ public class PositionService {
 		List<Position> positions = this.dao.list();
 	
 		System.out.println("--------------------------------------------------------");
-		System.out.println("직위번호 - 직위명 - 기본급");
+		System.out.println("직위번호 - 직위명 - 기본급 - 보너스");
 		for(Position p : positions) {
 			System.out.println(p.toString());
 		}

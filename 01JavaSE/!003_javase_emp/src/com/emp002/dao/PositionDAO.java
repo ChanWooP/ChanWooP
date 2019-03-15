@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import com.emp002.domain.Position;
 
 
@@ -40,6 +41,36 @@ public class PositionDAO {
 		});
 		
 		return temp;
+	}
+	
+	public String getPosName(String posId) {
+		String posName = null;
+		for(Position p : this.positions) {
+			if(p.getPosNum().equals(posId)) {
+				posName = p.getPosName();
+			}
+		}
+		return posName;
+	}
+	
+	public int getBasicPay(String posId) {
+		int basicpay = 0;
+		for(Position p : this.positions) {
+			if(p.getPosNum().equals(posId)) {
+				basicpay = p.getPosMoney();
+			}
+		}
+		return basicpay;
+	}
+	
+	public int getExtraPay(String posId) {
+		int extrapay = 0;
+		for(Position p : this.positions) {
+			if(p.getPosNum().equals(posId)) {
+				extrapay = p.getExtraMoney();
+			}
+		}
+		return extrapay;
 	}
 
 }

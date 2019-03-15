@@ -41,4 +41,14 @@ public class DepartmentDAO {
 		
 		return temp;
 	}
+	
+	public String getDeptName(String deptId) {
+		String deptName = null;
+		for(Department d : this.departments) {
+			if(d.getDeptNum().equals(deptId)) {
+				deptName = d.getDeptName();
+			}
+		}
+		return deptName;
+	}
 }

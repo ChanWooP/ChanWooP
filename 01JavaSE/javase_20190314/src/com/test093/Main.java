@@ -14,7 +14,7 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Pattern p = Pattern.compile("c[a-z]*");
+		Pattern p = Pattern.compile("c[a-z]+");
 		
 		while(true) {
 			System.out.print("임의의 문자열(단어)>");
@@ -22,6 +22,10 @@ public class Main {
 			if(word.equals("exit")) break;
 			Matcher m = p.matcher(word);
 			System.out.println(m.matches()); // true or false
+			
+			while(m.find()) {
+				System.out.println(m.group());
+			}
 		}
 		sc.close();
 		System.out.println("프로그램 종료");

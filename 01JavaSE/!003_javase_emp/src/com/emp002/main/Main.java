@@ -2,15 +2,24 @@ package com.emp002.main;
 
 import java.util.Scanner;
 
+import com.emp002.dao.DepartmentDAO;
+import com.emp002.dao.PositionDAO;
+import com.emp002.dao.RegionDAO;
 import com.emp002.service.EmployeeService;
 import com.emp002.service.SubService;;
 
 public class Main {
 
 	public static void main(String[] args) {
+		RegionDAO daoR = new RegionDAO();
+		DepartmentDAO daoD = new DepartmentDAO();
+		PositionDAO daoP = new PositionDAO();
+		
 		Scanner sc = new Scanner(System.in);
-		SubService subMenu = new SubService();
-		EmployeeService serviceE = new EmployeeService();
+		SubService subMenu = new SubService(daoR, daoD, daoP);
+		EmployeeService serviceE = new EmployeeService(daoR, daoD, daoP);
+		
+		
 		
 		while(true) {
 			System.out.println("직원 관리v1.0");

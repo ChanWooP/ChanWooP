@@ -7,25 +7,23 @@ import java.util.List;
 
 
 import com.emp002.domain.Employee;
-import com.emp002.dao.RegionDAO;
-import com.emp002.domain.Region;
 
 public class EmployeeDAO {
 	private List<Employee> employees = new ArrayList<Employee>();
 	
-	public EmployeeDAO() {
-		Employee e1 = new Employee("EMP001","홍길동","1-1","1-1-1","1-1-1","REG01","DEPT03","POS03",3000000,500000);
-		e1.setRegName("부산"); e1.setDeptName("개발"); e1.setPosName("부장");
-		employees.add(e1);
-		Employee e2 = new Employee("EMP002","박길동","1-1","1-1-1","1-1-1","REG02","DEPT02","POS01",2000000,500000);
-		e2.setRegName("서울"); e2.setDeptName("디자인"); e2.setPosName("차장");
-		employees.add(e2);
-		Employee e3 = new Employee("EMP003","김길동","1-1","1-1-1","1-1-1","REG03","DEPT01","POS02",1000000,500000);
-		e3.setRegName("김포"); e3.setDeptName("니로"); e3.setPosName("과장");
-		employees.add(e3);
-		Employee e4 = new Employee("EMP004","김길동","1-1","1-1-1","1-1-1","REG03","DEPT01","POS02",1000000,500000);
-		e4.setRegName("김포"); e4.setDeptName("니로"); e4.setPosName("과장");
-		employees.add(e4);
+	public void add(Employee employee) {
+		this.employees.add(employee);
+	}
+	
+	public String generateEid() {
+		String result = null;
+		int temp = this.employees.size() + 1;
+		
+		if(temp <= 999) {
+			result = String.format("EMP%03d", temp);
+		}
+		
+		return result;
 	}
 	
 	//정렬
@@ -85,12 +83,5 @@ public class EmployeeDAO {
 		return temp;
 	}
 	
-	//지역명 검색 메소드
-	//지역번호 제공 -> 지역명 반환
-	/*
-	 * public String regName(String regId) { String regName = null; for(Region r :
-	 * this.regions) { if(r.getRegNum().equals(regId)) { regName = r.getRegName(); }
-	 * } return regName; }
-	 */
 	
 }

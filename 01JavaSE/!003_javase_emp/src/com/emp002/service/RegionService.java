@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RegionService {
-	private RegionDAO dao = new RegionDAO();
+	private RegionDAO dao;
+	
+	public RegionService(RegionDAO daoR) {
+		this.dao = daoR;
+	}
 
 	public void menu(Scanner sc) {
 		while(true) {
