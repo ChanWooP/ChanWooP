@@ -16,9 +16,11 @@
 		<item value="github.com"/>
 	</list>
 	<list key="CommitDialog.authorValues">
+		<item value="ChanWooP &lt;cksdn4002@gmail.com&gt;"/>
 		<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
 	</list>
 	<list key="CommitDialog.committerValues">
+		<item value="ChanWooP &lt;cksdn4002@gmail.com&gt;"/>
 		<item value="ParkChanWoo &lt;ParkChanWoo@DESKTOP-96Q4II2&gt;"/>
 	</list>
 	<section name="GitImportWizard">
