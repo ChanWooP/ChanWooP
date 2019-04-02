@@ -63,6 +63,8 @@ INSERT INTO table0 (col1)
     VALUES ('TEST');
 INSERT INTO table0 (col2)
     VALUES ('HELLO');  --ORA-01400: cannot insert NULL into ("MINJONG"."TABLE0"."COL1")
+INSERT INTO table0 (col1, col2)
+    VALUES (NULL, 'HELLO');  --ORA-01400: cannot insert NULL into ("MINJONG"."TABLE0"."COL1")
 COMMIT;
 
 SELECT col1, col2
@@ -77,7 +79,7 @@ SELECT * FROM user_constraints
  
 -------------------------------
 --UNIQUE
-
+--중복 불가, NULL 허용, 테이블 내에서 여러번 지정 가능
 
 ----------------------
 CREATE TABLE table1 (
@@ -98,6 +100,8 @@ INSERT INTO table1 (col1)
     VALUES ('DEF');
 INSERT INTO table1 (col1, col2)
     VALUES ('1234', 'HELLO');  --ORA-00001: unique constraint (MINJONG.TABLE1_COL2_UK) violated
+INSERT INTO table1 (col2)
+    VALUES ('SAMPLE'); --ORA-01400: cannot insert NULL into ("MINJONG"."TABLE1"."COL1")
 COMMIT;
 
 SELECT col1, col2
@@ -108,6 +112,8 @@ SELECT col1, col2
  
 -------------------------------
 --CHECK
+--조건 지정에 의한 입력 범위 제한. NULL 허용.
+
 
 ----------------------
 CREATE TABLE table2 (
@@ -159,7 +165,23 @@ SELECT col1, col2
     
     
     
+---------------------------------
+--제약 조건 수정
+-->제약 조건 삭제(ALTER TABLE ... DROP CONSTRAINT ...) 후 추가(ALTER TABLE ... ADD CONSTRAINT ...)만 가능
+-->NOT NULL은 ALTER TABLE ... MODIFY ... 명령으로 수정합니다.
 
+    
+ALTER TABLE table2
+    DROP CONSTRAINT table2_col2_ck;
+ALTER TABLE table2
+    ADD CONSTRAINT table2_col2_ck 
+        CHECK(col2 IN ('JAVA', 'ORACLE', 'HTML', 'CSS', 'MYSQL'));    
+INSERT INTO table2 (col1, col2)
+    VALUES ('1234', 'MYSQL');
+SELECT *
+    FROM table2;
+  
+  
   
 ----------------------------------
 --제약 분석 쿼리
@@ -281,7 +303,7 @@ SELECT uc.TABLE_NAME AS TABLE_NAME
     WHERE CONSTRAINT_NAME=uc.R_CONSTRAINT_NAME) AS R_COLUMN_NAME
   FROM user_constraints uc, user_cons_columns ucc
   WHERE uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME
-  AND uc.table_name='EMPLOYEES';
+  AND uc.table_name='TABLE2';
   
   
 
@@ -339,6 +361,9 @@ INSERT INTO jobs (jikwi_id, jikwi_name) VALUES (2, '대리');
 INSERT INTO jobs (jikwi_id, jikwi_name) VALUES (3, '사원');
 COMMIT;
 
+SELECT *
+    FROM jobs;
+
 
 --FK 제약 지정
 CREATE TABLE employees (
@@ -365,6 +390,11 @@ SELECT * FROM employees;
 --jobs 테이블 자료 확인
 SELECT * FROM jobs;
 
+
+--job 테이블 삭제 --X
+DROP TABLE jobs;
+
+
 --jobs 테이블에서 '과장' 자료 삭제 시도. --X
 DELETE FROM jobs WHERE jikwi_id=1;
 
@@ -382,7 +412,7 @@ SELECT * FROM user_constraints WHERE table_name='EMPLOYEES';
 
 --기존 FK 제약 삭제
 ALTER TABLE employees
-    DROP CONSTRAINT SYS_C007031;
+    DROP CONSTRAINT SYS_C007083;
     
 ----------------------------
 --ON DELETE CASCADE 옵션 지정 후
@@ -449,3 +479,487 @@ SELECT utc.table_name AS table_name --제약이 지정된 테이블명
 SELECT *  
     FROM constraintsCheckView
   WHERE table_name='EMPLOYEES';
+  
+
+
+------------------------------------------------------------
+--UPDATE
+
+/*
+1. 테이블에서 기존의 데이터를 변경한다.
+2. UPDATE 테이블_명
+	SET 컬럼_명= 변경할_값[, 컬럼_명= 변경할_값, ...]
+	[WHERE 조건];
+*/
+
+
+----------------------------
+CREATE TABLE members (
+    mid NUMBER   --PK 역할. 숫자 전용.
+    , name_ NVARCHAR2(10)  --한글, 영숫자 가능. 10자 이내.
+    , phone VARCHAR2(10) --영숫자 가능. 10자 이내.
+);
+
+--PK 제약 추가
+--제약명 작성시 '테이블명_컬럼명_제약종류' 표기 권장
+ALTER TABLE members
+    ADD CONSTRAINT members_mid_pk PRIMARY KEY(mid);
+    
+
+--생성된 테이블에 샘플 데이터 입력
+INSERT INTO members (mid, name_, phone) VALUES (1, '홍길동', '1234');
+INSERT INTO members (mid, name_, phone) VALUES (2, '박길동', '5678');
+COMMIT;
+
+--생성된 테이블에 입력된 자료 확인
+SELECT mid, name_, phone
+    FROM members;
+
+
+--------------------------
+--한 개의 row를 상대로 한 개의 항목 수정
+--원본 상태 확인
+SELECT * FROM members;
+
+--박길동 전화번호 변경 시도
+--주의) 검색 조건 지정 중요
+UPDATE members
+    SET phone = '1111'
+    WHERE mid = 2;
+
+--변경된 전화번호 확인
+SELECT * FROM members;
+
+ROLLBACK;
+
+---------------------
+--한 개의 row를 상대로 여러개의 항목 수정
+--원본 상태 확인
+SELECT * FROM insa;
+--basicpay 2610000	sudang 200000
+
+--홍길동 기본급, 수당 변경 시도
+--주의) 검색 조건 지정 중요
+UPDATE insa
+    SET basicpay = 3000000, sudang = 500000
+    WHERE num=1001;
+--COMMIT;
+
+--변경된 기본급, 수당 확인
+SELECT * FROM insa;
+--basicpay 3000000	sudang 500000
+
+ROLLBACK;
+
+---------------------
+--여러개의 row를 상대로 한 개의 항목 수정
+--원본 상태 확인
+SELECT * FROM insa
+    WHERE buseo='개발부';
+--sudang 102000 ~ 210000
+
+--개발부 직원 전체의 수당 변경 시도
+--주의) 검색 조건 지정 중요
+UPDATE insa
+    SET sudang = sudang + (sudang * 0.01)
+    WHERE buseo='개발부';
+--COMMIT;
+
+--변경된 수당 확인
+SELECT * FROM insa
+    WHERE buseo='개발부';
+--sudang 103020 ~ 212100
+
+ROLLBACK;
+
+
+-------------------------------------------------
+--주의) WHERE 조건절을 지정하지 않거나, 잘못된 조건인 경우 원하지 않는 row까지 수정의 범위에 포함된다.
+
+--홍길동의 전화번호 변경시 WHERE 조건절 지정 하지 않는 경우를 상정
+SELECT * FROM insa
+    WHERE num=1001; --조건 지정시 유일한 값(PK 컬럼의 값)을 가지고 검색 권장
+--011-2356-4528
+
+--올바른 수정 예    
+UPDATE insa
+    SET tel = '010-1234-1234'
+    WHERE num=1001;
+COMMIT;
+
+SELECT * FROM insa
+    WHERE num=1001;
+--010-1234-1234
+
+--잘못된 수정 예    
+UPDATE insa
+    SET tel = '010-1234-1234';
+--COMMIT;
+
+SELECT * FROM insa;
+-->모든 직원의 전화번호가 변경된 상태가 된다.
+
+ROLLBACK;
+
+
+
+------------------------------------------------------
+--hr 스키마의 테이블을 복사해서 사본 테이블 생성
+--주의) 제약조건은 복사되지 않는다.
+CREATE TABLE employees
+AS
+SELECT * FROM hr.employees;
+
+SELECT * FROM employees;
+
+CREATE TABLE departments
+AS
+SELECT * FROM hr.departments;
+
+CREATE TABLE jobs
+AS
+SELECT * FROM hr.jobs;
+
+--PK, FK 제약조건 별도 지정
+
+ALTER TABLE departments
+    ADD CONSTRAINT departments_department_id_pk PRIMARY KEY(department_id);
+    
+ALTER TABLE jobs
+    ADD CONSTRAINT jobs_job_id_pk PRIMARY KEY(job_id);
+
+ALTER TABLE employees
+    ADD CONSTRAINT employees_employee_id_pk PRIMARY KEY(employee_id);
+    
+ALTER TABLE employees
+    ADD (CONSTRAINT employees_job_id_fk FOREIGN KEY(job_id)
+            REFERENCES jobs(job_id)
+    , CONSTRAINT employees_department_id_fk FOREIGN KEY(department_id)
+            REFERENCES departments(department_id)
+    , CONSTRAINT employees_manager_id_fk FOREIGN KEY(manager_id)
+            REFERENCES employees(employee_id)
+    , CONSTRAINT employees_email_uk UNIQUE(email));
+      
+ALTER TABLE departments
+    ADD CONSTRAINT departments_manager_id_fk FOREIGN KEY(manager_id)
+            REFERENCES employees(employee_id);
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--서브쿼리를 UPDATE 구문의 일부로 사용 가능
+
+/*
+UPDATE 테이블명
+    SET 컬럼명 = (서브쿼리)
+    WHERE (서브쿼리를 이용한 조건식);
+    
+    
+예를 들어,
+UPDATE employees
+	SET salary = salary*1.1
+	WHERE department_id IN (SELECT department_id
+				 FROM departments
+				 WHERE department_name='IT');
+                 
+                 
+UPDATE (서브쿼리-JOIN 쿼리를 이용한 가상 테이블)
+    SET 컬럼명 = 값
+    WHERE 조건식;
+    -
+예를 들어,
+UPDATE (SELECT e.first_name, e.last_name, e.salary, d.department_name
+	FROM employees e, departments d
+	WHERE e.department_id = d.department_id)  
+  SET salary=salary*1.1
+  WHERE department_name='IT';
+  
+*/
+
+--원본 상태 확인
+SELECT employee_id, first_name, department_id, salary
+    FROM employees
+    ORDER BY employee_id;
+
+--수정 액션(방법1)
+UPDATE employees
+	SET salary = salary*1.1
+	WHERE department_id IN (SELECT department_id
+				 FROM departments
+				 WHERE department_name='IT');
+                 
+    
+ROLLBACK;
+
+
+--수정 액션(방법2)
+UPDATE (SELECT *
+    FROM employees e, departments d
+    WHERE e.department_id = d.department_id)
+	SET salary = salary*1.1
+	WHERE  department_name='IT';
+
+
+--수정된 결과 확인          
+SELECT employee_id, first_name, department_id, salary
+    FROM employees
+    ORDER BY employee_id;
+
+
+ROLLBACK;
+
+-------------------------------
+CREATE TABLE jobs (
+	jikwi_id NUMBER
+	,jikwi_name VARCHAR2(10)
+);
+
+ALTER TABLE jobs
+	 ADD CONSTRAINT JOBS_JIKWI_ID_PK PRIMARY KEY(jikwi_id);
+
+INSERT INTO jobs (jikwi_id, jikwi_name)
+  VALUES (1, 'CLERK');
+INSERT INTO jobs (jikwi_id, jikwi_name)
+  VALUES (2, 'MANAGER');
+INSERT INTO jobs (jikwi_id, jikwi_name)
+  VALUES (3, 'PRESIDENT');
+INSERT INTO jobs (jikwi_id, jikwi_name)
+  VALUES (4, 'VICE PRES'); --O
+COMMIT;
+
+
+CREATE TABLE employees (
+	sid NUMBER
+	,name VARCHAR2(10) 
+	,jikwi_id NUMBER
+);
+
+ALTER TABLE employees
+	ADD CONSTRAINT EMPLOYEES_SID_PK PRIMARY KEY(sid);
+ALTER TABLE employees
+	ADD CONSTRAINT EMPLOYEES_JIKWI_ID_FK 
+			FOREIGN KEY(jikwi_id)
+			REFERENCES jobs(jikwi_id);
+
+INSERT INTO employees (sid, name, jikwi_id)
+  VALUES (1, 'hong', 1); --O
+INSERT INTO employees (sid, name, jikwi_id)
+  VALUES (2, 'park', 2); --O
+INSERT INTO employees (sid, name, jikwi_id)
+  VALUES (3, 'choi', 2); --FK 중복 허용. O
+COMMIT;
+
+
+--수당 항목 추가 + 기본값 추가
+ALTER TABLE employees
+    ADD (extrapay NUMBER DEFAULT 100000);
+
+
+--원본 상태 확인
+SELECT sid, name, e.extrapay , e.jikwi_id, jikwi_name
+  FROM employees e, jobs j
+  WHERE e.jikwi_id=j.jikwi_id;
+/*  
+1	hong	100000	1	CLERK
+2	park	100000	2	MANAGER
+3	choi	100000	2	MANAGER
+*/
+
+
+--jobs.jikwi_name 이 'CLERK'인 직원의 수당(employees.extrapay) 변경
+UPDATE employees
+    SET extrapay = 20000
+    WHERE jikwi_name = 'CLERK'; --ORA-00904: "JIKWI_NAME": invalid identifier
+    
+--방법1    
+UPDATE employees
+    SET extrapay = 20000
+    WHERE jikwi_id = (SELECT jikwi_id FROM jobs WHERE jikwi_name = 'CLERK');    
+    
+--방법2
+UPDATE (SELECT extrapay, jikwi_name
+            FROM employees emp, jobs j
+            WHERE emp.jikwi_id = j.jikwi_id)
+    SET extrapay = 20000
+    WHERE jikwi_name = 'CLERK';
+COMMIT;
+
+--수정된 상태 확인
+SELECT sid, name, e.extrapay , e.jikwi_id, jikwi_name
+  FROM employees e, jobs j
+  WHERE e.jikwi_id=j.jikwi_id;
+/*  
+1	hong	20000	1	CLERK
+2	park	100000	2	MANAGER
+3	choi	100000	2	MANAGER
+*/  
+
+
+--jobs.jikwi_name이 'CLERK'인 직원의 수당(employees.extrapay) 20% 인상. jobs.jikwi_name이 'MANAGER'인 직원의 수당(employees.extrapay) 10% 인상.
+--> DECODE() 함수 사용.
+UPDATE (SELECT extrapay, jikwi_name
+            FROM employees emp, jobs j
+            WHERE emp.jikwi_id = j.jikwi_id)
+    SET extrapay = DECODE(jikwi_name, 'CLERK', extrapay*1.2, 'MANAGER', extrapay*1.1, extrapay);
+COMMIT;
+
+--수정된 상태 확인
+SELECT sid, name, e.extrapay , e.jikwi_id, jikwi_name
+  FROM employees e, jobs j
+  WHERE e.jikwi_id=j.jikwi_id;
+/*  
+1	hong	24000	1	CLERK
+2	park	110000	2	MANAGER
+3	choi	110000	2	MANAGER
+*/
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+--DELETE
+
+/*
+1. 테이블에서 지정한 행을 삭제하는데 사용한다.
+2. DELETE [FROM] 테이블_명 [WHERE 조건];
+*/
+
+
+
+--------------------------
+--한 개의 row를 상대로 삭제
+--원본 상태 확인
+SELECT * FROM members;
+
+--박길동 자료 삭제 시도
+--주의) 검색 조건 지정 중요
+DELETE FROM members
+    WHERE mid=2;
+COMMIT;
+
+--삭제된 상태 확인
+SELECT * FROM members;
+
+
+
+
+--------------------------
+--여러 개의 row를 상대로 삭제
+--원본 상태 확인
+SELECT * FROM insa;
+
+--'개발부' 전체 자료 삭제 시도
+--주의) 검색 조건 지정 중요
+DELETE FROM insa
+    WHERE buseo='개발부';
+COMMIT;
+
+--삭제된 상태 확인
+SELECT * FROM insa;
+
+
+
+-------------------------------------------------
+--주의) WHERE 조건절을 지정하지 않거나, 잘못된 조건인 경우 원하지 않는 row까지 삭제의 범위에 포함된다.
+
+DELETE FROM insa;
+--COMMIT;
+
+--삭제된 상태 확인
+SELECT * FROM insa;
+--> 모든 자료가 삭제된 상태이다.
+--> ROLLBACK;
+
+
+
+--jobs.jikwi_name 이 'CLERK'인 직원(employees 테이블)만 삭제 시도
+DELETE FROM (SELECT extrapay, jikwi_name
+            FROM employees emp, jobs j
+            WHERE emp.jikwi_id = j.jikwi_id)
+    WHERE jikwi_name = 'CLERK';
+COMMIT;
+
+--삭제된 상태 확인
+SELECT *
+        FROM employees emp, jobs j
+        WHERE emp.jikwi_id = j.jikwi_id;
+      
+      
+--주의) jobs 테이블의 row를 삭제하는 경우(참조 당하는 경우 삭제 불가)        
+SELECT * FROM jobs;
+
+DELETE FROM jobs
+    WHERE jikwi_id = 2; --ORA-02292: integrity constraint (MINJONG.EMPLOYEES_JIKWI_ID_FK) violated - child record found
+
+--> FK 제약 생성시 ON DELETE CASCADE 옵션 지정하면 삭제 가능
+
+
+---------------------------------------
+--참조 당하는 자료는 삭제 불가
+SELECT *
+    FROM departments;
+
+DELETE FROM departments
+    WHERE department_id = 60; --ORA-02292: integrity constraint (MINJONG.EMPLOYEES_DEPARTMENT_ID_FK) violated - child record found
+    
+DELETE FROM departments
+    WHERE department_id = 210; --삭제 가능
+
+ROLLBACK;
+
+DELETE FROM departments; 
+--전체 삭제 불가 
+--> 참조 관계 해소 필요
+--> FK 제약 지정한 테이블에서 FK 제약 생성시 ON DELETE CASCADE 옵션 지정하면 삭제 가능
+
+
+
+---------------------------------------
+-- ON DELETE CASCADE 옵션 추가
+ALTER TABLE employees
+    DROP CONSTRAINT EMPLOYEES_DEPARTMENT_ID_FK;
+    
+ALTER TABLE departments
+    DROP CONSTRAINT DEPARTMENTS_MANAGER_ID_FK;
+
+ALTER TABLE employees   
+    ADD CONSTRAINT EMPLOYEES_DEPARTMENT_ID_FK FOREIGN KEY(department_id)
+        REFERENCES departments(department_id)
+        ON DELETE CASCADE;
+-->PK 자료 삭제시 FK 자료가 같이 삭제된다.
+
+DELETE FROM departments
+    WHERE department_id = 60;
+COMMIT;
+
+DELETE FROM departments
+    WHERE department_id = 100;
+COMMIT;
+
+SELECT * 
+    FROM departments;
+SELECT *
+    FROM employees
+    ORDER BY  department_id;
+
+    
+--------------------------------------------
+--문제060) HR 계정 employees 테이블에서 job_title이 'Sales Manager'인 직원들의 salary를 해당 직무의 최고 급여(max_salary)로 수정. 단, 입사일(hire_date)가 2005년 이전(해당 년도 포함) 입사자에 한해서 적용함.
+
+
+
+--문제061) HR 계정 employees 테이블에서 모든 직원의 salary를 해당 직원의 직무(job_id) 최고 급여(max_salary)로 수정.
+--예를 들어, AD_PRES는 40000, AD_VP는 30000, IT_PROG는 10000으로 수정됨.
