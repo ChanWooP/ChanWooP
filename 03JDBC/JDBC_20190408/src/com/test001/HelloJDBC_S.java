@@ -3,7 +3,7 @@ package com.test001;
 //1단계. 라이브러리 import
 import java.sql.*;
 
-public class HelloJDBC {
+public class HelloJDBC_S {
 
 	public static void main(String[] args) {
 		
