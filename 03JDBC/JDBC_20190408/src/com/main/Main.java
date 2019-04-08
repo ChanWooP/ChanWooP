@@ -21,9 +21,11 @@ public class Main {
 			
 			switch(c) {
 			case 1: servicem.menu01(); break;
-			case 2: servicem.menu02(); break;
+			case 2: servicem.menu02(sc); break;
 			}
 		}
+		sc.close();
+		System.out.println("프로그램 종료");
 	}
 
 }

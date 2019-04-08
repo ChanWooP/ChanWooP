@@ -67,10 +67,16 @@ public class MemberDAO {
 			
 			
 			
+			String sql = "INSERT INTO members(mid, name_, phone, email) VALUES(?,?,?,?)";
 			
+			stmt = conn.prepareStatement(sql);
 			
+			stmt.setString(1,m.getMid());
+			stmt.setString(2,m.getName_());
+			stmt.setString(3,m.getPhone());
+			stmt.setString(4,m.getEmail());
 			
-			
+			result = stmt.executeUpdate();
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
