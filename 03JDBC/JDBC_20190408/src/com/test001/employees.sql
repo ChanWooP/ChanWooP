@@ -11,3 +11,6 @@ INSERT INTO Employees VALUES (103, 28, 'Sumit', 'Mittal');
 Commit;
 
 SELECT id_, age, first_, last_ FROM employees;
+
+ALTER TABLE employees
+	ADD CONSTRAINT ID_PK PRIMARY KEY(id_);
