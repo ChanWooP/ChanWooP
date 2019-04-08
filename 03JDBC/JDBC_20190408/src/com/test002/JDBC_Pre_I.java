@@ -1,4 +1,4 @@
-package com_test002;
+package com.test002;
 
 import java.sql.*;
 
