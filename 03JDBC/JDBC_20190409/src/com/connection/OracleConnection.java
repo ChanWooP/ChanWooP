@@ -1,4 +1,4 @@
-package com.OracleConnection;
+package com.connection;
 
 import java.sql.*;
 
