@@ -16,7 +16,7 @@ public class Main {
 			int c = sc.nextInt();
 			sc.nextLine();
 			
-			if(c==0) break;
+			if(c == 0) break;
 			
 			switch(c)
 			{

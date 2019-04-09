@@ -86,7 +86,7 @@ public class ScoreService {
 			sc.nextLine();
 			
 			
-			if(c==0) break;
+			if(c == 0) break;
 			
 			System.out.print("검색>");
 			String value = sc.nextLine();
