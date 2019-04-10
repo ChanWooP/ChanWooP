@@ -145,7 +145,7 @@ SELECT SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
     FROM account_
 SELECT CONCAT('111-',SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
         || '-'
-        || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5))
+        || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5)) "NewAccountId"
     FROM account_
 
 --관리자 / 계좌조회
