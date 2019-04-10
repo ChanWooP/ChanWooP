@@ -217,7 +217,7 @@ public class AccountDAO {
 			//insert + update
 			String sql1 = "INSERT INTO AccountHistory_\r\n" +
 					"	(accountId,money,inoutdate,gubun,balance)\r\n" + 
-					"    VALUES(?, ?, SYSDATE, '입금', ?)";
+					"    VALUES(?, ?, SYSDATE, '출금', ?)";
 			
 			stmt = conn.prepareStatement(sql1);
 			
@@ -244,7 +244,7 @@ public class AccountDAO {
 			//커밋
 			conn.commit();
 			
-			//입금 후 잔액 변동
+			//출금 후 잔액 변동
 			result = newBalance;
 
 		}catch(ClassNotFoundException | SQLException e) {
