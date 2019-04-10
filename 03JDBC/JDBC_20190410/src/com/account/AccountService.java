@@ -95,11 +95,37 @@ public class AccountService {
 			if(c == 4) break;
 			
 			switch(c) {
-			case 1: break;
+			case 1: this.menu99_1(sc); break;
 			case 2: this.menu99_2(sc); break;
 			case 3: break;
 			}
 		}
+	}
+	
+	private void menu99_1(Scanner sc) {
+		List<AccountList> result; 
+		
+		String newAccountOwnerId = this.daoA.getNewAccountOwnerId();
+		System.out.println("계좌생성 작업을 위해 계좌조회를 먼저 진행합니다.");
+		this.menu99_2_3(sc);
+		System.out.print("신규 계좌를 등록할까요(0/1)>");
+		int c = sc.nextInt();
+		sc.nextLine();
+		
+		if(c == 1) {
+			String newAccountId = this.daoA.getNewAccountId();
+			System.out.print("비밀번호>");
+			String pw = sc.nextLine();
+			System.out.print("초기입금액>");
+			int money = sc.nextInt();
+			sc.nextLine();
+
+			
+			System.out.println("계좌생성이 완료되었습니다.");
+		}else {
+			System.out.println("계좌생성이 종료되었습니다.");
+		}
+
 	}
 	
 	private void menu99_2(Scanner sc) {

@@ -121,6 +121,33 @@ UPDATE Account_
 
 
 --관리자
+--관리자 / 계좌생성
+--계좌번호 자동 생성
+--샘플 계좌번호 : 111-1111-1
+--앞 3자리는 고유번호
+--중간 4자리는 일련번호
+--뒤 1자리는 일련번호
+--예) 111-1111-1, 111-1111-2, ... 111-1111-9, 111-1112-0. ...
+--자동생성) 1111-1 => 11111+1 => 11112 => 1111-2 => 111-1111-2
+SELECT MAX(accountId)
+    FROM account_
+SELECT REPLACE(SUBSTR(MAX(accountId),5), '-')
+    FROM account_
+SELECT REPLACE(SUBSTR(MAX(accountId),5), '-') + 1
+    FROM account_
+SELECT SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
+    FROM account_  
+SELECT SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5)
+    FROM account_  
+SELECT SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
+        || '-'
+        || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5)
+    FROM account_
+SELECT CONCAT('111-',SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
+        || '-'
+        || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5))
+    FROM account_
+
 --관리자 / 계좌조회
 --관리자 / 계좌조회 / 전체계좌
 SELECT a1.accountId, a1.balance, a1.accountCreateDate, a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone

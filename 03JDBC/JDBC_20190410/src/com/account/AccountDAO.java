@@ -317,4 +317,90 @@ public class AccountDAO {
 		
 		return result;
 	}
+	
+	//계좌 자동 생성 메소드
+	public String getNewAccountId() {
+		String result = "";
+			
+		Connection conn = null;
+		PreparedStatement stmt = null;
+			
+		try {
+				
+			conn = OracleConnection.connect();
+				
+			String sql = "SELECT CONCAT('111-',SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)\r\n" + 
+					"        || '-'\r\n" + 
+					"        || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5)) NewAccountId \r\n" + 
+					"    FROM account_";
+
+			stmt = conn.prepareStatement(sql);
+				
+			ResultSet rs = stmt.executeQuery();
+				
+			while(rs.next()) {
+				result = rs.getString("NewAccountId");
+			}
+
+			rs.close();
+				
+			}catch(ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			} finally {
+				 try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			        	 OracleConnection.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }
+			}
+			
+			return result;
+		}
+	
+	//계좌 자동 생성 메소드
+		public String getNewAccountOwnerId() {
+			String result = "";
+				
+			Connection conn = null;
+			PreparedStatement stmt = null;
+				
+			try {
+					
+				conn = OracleConnection.connect();
+					
+				String sql = "SELECT CONCAT('A', TRIM(TO_CHAR(SUBSTR(MAX(accountOwnerId), 2) + 1, '000'))) newAccountOwnerId\r\n" + 
+						"    FROM AccountOwner_";
+
+				stmt = conn.prepareStatement(sql);
+					
+				ResultSet rs = stmt.executeQuery();
+					
+				while(rs.next()) {
+					result = rs.getString("newAccountOwnerId");
+				}
+
+				rs.close();
+					
+				}catch(ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				} finally {
+					 try{
+				         if(stmt!=null)
+				            stmt.close();
+				      }catch(SQLException se2){
+				      }
+				      try{
+				        	 OracleConnection.close();
+				      }catch(SQLException se){
+				         se.printStackTrace();
+				      }
+				}
+				
+				return result;
+			}
 }
