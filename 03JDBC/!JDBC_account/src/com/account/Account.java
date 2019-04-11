@@ -16,11 +16,22 @@ public class Account {
 		
 	}
 	
+	//출금용 생성자
 	public Account(String accountId, String pw) {
 		this.accountId = accountId;
 		this.pw = pw;
 	}
 
+	//계좌생성용 생성자
+	public Account(String accountId, String accountOwnerId, String pw, int balance) {
+		this.accountId = accountId;
+		this.accountOwnerId = accountOwnerId;
+		this.pw = pw;
+		this.balance = balance;
+	}
+	
+	
+	//그냥 만듦
 	public Account(String accountId, String accountOwnerId, int balance
 			, String accountCreateDate, String pw, String lastUpdateDate) {
 		this.accountId = accountId;

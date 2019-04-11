@@ -11,7 +11,8 @@ public class AccountOwner {
 	public AccountOwner() {
 		
 	}
-
+	
+	// 계좌주 생성용 생성자
 	public AccountOwner(String accountOwnerId, String accountOwnerName
 			, String accountOwnerPhone) {
 		this.accountOwnerId = accountOwnerId;

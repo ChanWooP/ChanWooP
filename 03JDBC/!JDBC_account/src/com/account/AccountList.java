@@ -8,6 +8,7 @@ public class AccountList {
 	private String lastUpdateDate;
 	private String accountOwnerName;
 	private String accountOwnerPhone;
+	private String accountOwnerId;
 		
 		
 	// 생성자 -> 기본 생성자, 매개변수 있는 생성자
@@ -15,15 +16,16 @@ public class AccountList {
 		
 	}
 
-
+	// 출력용 생성자
 	public AccountList(String accountId, int balance, String accountCreateDate
-			, String lastUpdateDate, String accountOwnerName, String accountOwnerPhone) {
+			, String lastUpdateDate, String accountOwnerName, String accountOwnerPhone, String accountOwnerId) {
 		this.accountId = accountId;
 		this.balance = balance;
 		this.accountCreateDate = accountCreateDate;
 		this.lastUpdateDate = lastUpdateDate;
 		this.accountOwnerName = accountOwnerName;
 		this.accountOwnerPhone = accountOwnerPhone;
+		this.accountOwnerId = accountOwnerId;
 	}
 
 	//getter, setter
@@ -85,6 +87,16 @@ public class AccountList {
 	public void setAccountOwnerPhone(String accountOwnerPhone) {
 		this.accountOwnerPhone = accountOwnerPhone;
 	}
+
+	public String getAccountOwnerId() {
+		return accountOwnerId;
+	}
+
+
+	public void setAccountOwnerId(String accountOwnerId) {
+		this.accountOwnerId = accountOwnerId;
+	}
+
 
 	//toString()
 	@Override

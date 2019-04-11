@@ -104,24 +104,69 @@ public class AccountService {
 	
 	private void menu99_1(Scanner sc) {
 		List<AccountList> result; 
+		AccountOwner ao = null;
+		String OwnerId = null;
 		
-		String newAccountOwnerId = this.daoA.getNewAccountOwnerId();
 		System.out.println("계좌생성 작업을 위해 계좌조회를 먼저 진행합니다.");
-		this.menu99_2_3(sc);
+		
+		//계좌조회 메소드 호출
+		//계좌정보 출력
+		System.out.print("이름>");
+		String name = sc.nextLine();
+		System.out.print("전화번호>");
+		String phone = sc.nextLine();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("1", name);
+		map.put("2", phone);
+		
+		System.out.printf("(%s/%s)님의 계좌목록%n",name, phone);
+		
+		result = this.daoA.list("name/phone", map);
+		accountList(result);
+		
+		if(result.size() == 0) {
+			String newAccountOwnerId = this.daoA.getNewAccountOwnerId();
+			OwnerId = newAccountOwnerId;
+			ao = new AccountOwner(newAccountOwnerId, name, phone);
+		}else {
+			OwnerId = result.get(0).getAccountOwnerId();
+		}
+	
 		System.out.print("신규 계좌를 등록할까요(0/1)>");
 		int c = sc.nextInt();
 		sc.nextLine();
 		
 		if(c == 1) {
+			
+			//계좌번호 자동 생성 메소드 호출
 			String newAccountId = this.daoA.getNewAccountId();
+			
+			
+			//초기입금액, 비밀번호 입력
 			System.out.print("비밀번호>");
 			String pw = sc.nextLine();
 			System.out.print("초기입금액>");
 			int money = sc.nextInt();
 			sc.nextLine();
-
 			
-			System.out.println("계좌생성이 완료되었습니다.");
+			System.out.print("정말 계좌생성을 하시겠습니까?>(0/1)");
+			int c2 = sc.nextInt();
+			sc.nextLine();
+			
+			if(c2 == 1) {
+				boolean check = this.daoA.newAccount(ao, new Account(newAccountId, OwnerId, pw, money));
+				
+				if(check) {
+					System.out.println("계좌생성이 완료되었습니다.");
+				}else {
+					System.out.println("계좌생성이 실패했습니다.");
+				}
+				
+			}else {
+				System.out.println("계좌생성이 취소되었습니다.");
+			}
+			
 		}else {
 			System.out.println("계좌생성이 종료되었습니다.");
 		}

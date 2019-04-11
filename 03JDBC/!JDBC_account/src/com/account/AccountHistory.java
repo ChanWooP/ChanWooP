@@ -14,12 +14,14 @@ public class AccountHistory {
 		
 	}
 	
+	//입금용 생성자
 	public AccountHistory(String accountId, int money, int balance) {
 		this.accountId = accountId;
 		this.money = money;
 		this.balance = balance;
 	}
 
+	//출력용 생성자
 	public AccountHistory(String accountId, int money, String inoutdate
 			, String gubun, int balance) {
 		this.accountId = accountId;

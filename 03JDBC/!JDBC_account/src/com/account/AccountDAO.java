@@ -25,7 +25,7 @@ public class AccountDAO {
 			conn = OracleConnection.connect();
 			
 			String sql = "SELECT a1.accountId, a1.balance, a1.accountCreateDate \r\n"
-							+", a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone \r\n"
+							+", a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone, a2.accountOwnerId \r\n"
 				    		+"FROM Account_ a1, AccountOwner_ a2 \r\n"
 				    		+"WHERE a1.accountOwnerId = a2.accountOwnerId \r\n";
 				    		
@@ -57,9 +57,10 @@ public class AccountDAO {
 				String lastUpdateDate = rs.getString("lastUpdateDate");
 				String accountOwnerName = rs.getString("accountOwnerName"); 
 				String accountOwnerPhone = rs.getString("accountOwnerPhone");
+				String accountOwnerId = rs.getString("accountOwnerId");
 				
 				result.add(new AccountList(accountId, balance, accountCreateDate
-						, lastUpdateDate, accountOwnerName, accountOwnerPhone));
+						, lastUpdateDate, accountOwnerName, accountOwnerPhone, accountOwnerId));
 			}
 			
 			rs.close();
@@ -363,44 +364,115 @@ public class AccountDAO {
 		}
 	
 	//계좌 자동 생성 메소드
-		public String getNewAccountOwnerId() {
-			String result = "";
+	public String getNewAccountOwnerId() {
+		String result = "";
 				
-			Connection conn = null;
-			PreparedStatement stmt = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
 				
-			try {
+		try {
 					
-				conn = OracleConnection.connect();
+			conn = OracleConnection.connect();
 					
-				String sql = "SELECT CONCAT('A', TRIM(TO_CHAR(SUBSTR(MAX(accountOwnerId), 2) + 1, '000'))) newAccountOwnerId\r\n" + 
+			String sql = "SELECT CONCAT('A', TRIM(TO_CHAR(SUBSTR(MAX(accountOwnerId), 2) + 1, '000'))) newAccountOwnerId\r\n" + 
 						"    FROM AccountOwner_";
 
-				stmt = conn.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 					
-				ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 					
-				while(rs.next()) {
-					result = rs.getString("newAccountOwnerId");
-				}
-
-				rs.close();
-					
-				}catch(ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-				} finally {
-					 try{
-				         if(stmt!=null)
-				            stmt.close();
-				      }catch(SQLException se2){
-				      }
-				      try{
-				        	 OracleConnection.close();
-				      }catch(SQLException se){
-				         se.printStackTrace();
-				      }
-				}
-				
-				return result;
+			while(rs.next()) {
+				result = rs.getString("newAccountOwnerId");
 			}
+
+			rs.close();
+					
+			}catch(ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			} finally {
+					try{
+						if(stmt!=null)
+							stmt.close();
+					}catch(SQLException se2){
+					}
+					try{
+						OracleConnection.close();
+					}catch(SQLException se){
+						se.printStackTrace();
+					}
+			}
+				
+		return result;
+	}
+	
+	//계좌주정보, 계좌정보 생성 메소드
+	public boolean newAccount(AccountOwner ao, Account a) {
+		
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			
+			conn = OracleConnection.connect();
+			
+			// 자동 commit 취소
+			conn.setAutoCommit(false); 
+			
+			if(ao != null) {
+				//계좌주정보 생성
+				String sql1 = "INSERT INTO AccountOwner_ (accountOwnerId,accountOwnerName,accountOwnerPhone)\r\n" + 
+						"VALUES(?, ?, ?)";
+				stmt = conn.prepareStatement(sql1);
+				
+				stmt.setString(1, ao.getAccountOwnerId());
+				stmt.setString(2, ao.getAccountOwnerName());
+				stmt.setString(3, ao.getAccountOwnerPhone());
+				
+				stmt.executeUpdate();
+				stmt.close();
+			}
+			
+			//계좌정보생성
+			String sql2 = "INSERT INTO Account_(accountId,accountOwnerId ,balance ,accountCreateDate ,pw ,lastUpdateDate) \r\n" + 
+					"VALUES(?, ?, ?, SYSDATE, ?, SYSDATE)";
+			
+			stmt = conn.prepareStatement(sql2);
+			
+			stmt.setString(1, a.getAccountId());
+			stmt.setString(2, a.getAccountOwnerId());
+			stmt.setInt(3, a.getBalance());;
+			stmt.setString(4, a.getPw());
+			
+			stmt.executeUpdate();
+			
+			//커밋
+			conn.commit();
+			
+			result = true;
+			
+		}catch(ClassNotFoundException | SQLException e) {
+			try {
+				//롤백
+				conn.rollback();
+			}catch(SQLException e1) {
+				e.printStackTrace();
+			}
+			
+		} finally {
+			 try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }
+		      try{
+		        	 OracleConnection.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		}
+		
+		return result;
+	}
 }
