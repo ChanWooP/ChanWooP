@@ -120,8 +120,18 @@ UPDATE Account_
     WHERE accountID = '111-1111-1';
 
 
---관리자
---관리자 / 계좌생성
+--****관리자****
+
+--****관리자 / 계좌생성****
+
+--****관리자 / 계좌생성 / 계좌주번호생성****
+SELECT CONCAT('A', TRIM(TO_CHAR(SUBSTR(MAX(accountOwnerId), 2) + 1, '000'))) newAccountOwnerId
+FROM AccountOwner
+--****관리자 / 계좌생성 / 계좌주번호생성 / 계좌주생성****
+INSERT INTO AccountOwner_ (accountOwnerId,accountOwnerName,accountOwnerPhone)
+VALUES('A001', '홍길동', '010-1111-1111');
+
+--****관리자 / 계좌생성 / 계좌번호생성****
 --계좌번호 자동 생성
 --샘플 계좌번호 : 111-1111-1
 --앞 3자리는 고유번호
@@ -146,21 +156,32 @@ SELECT SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
 SELECT CONCAT('111-',SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,1,4)
         || '-'
         || SUBSTR(REPLACE(SUBSTR(MAX(accountId),5), '-') + 1,5)) "NewAccountId"
-    FROM account_
+FROM account_
+--****관리자 / 계좌생성 / 계좌번호생성 / 계좌생성****
+INSERT INTO Account_(accountId,accountOwnerId ,balance ,accountCreateDate ,pw ,lastUpdateDate) 
+VALUES('111-1111-3', 'A002', 60000, '2019-03-01', '1234', '2019-03-20');
 
---관리자 / 계좌조회
---관리자 / 계좌조회 / 전체계좌
+--****관리자 / 계좌입출금내역****
+SELECT accountid, money, inoutdate, gubun, balance
+    FROM AccountHistory_
+    WHERE accountid = '111-1111-1'
+    AND inoutdate > '20190303'
+    ORDER BY inoutdate
+    
+
+--****관리자 / 계좌조회****
+--****관리자 / 계좌조회 / 전체계좌****
 SELECT a1.accountId, a1.balance, a1.accountCreateDate, a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone
     FROM Account_ a1, AccountOwner_ a2
     WHERE a1.accountOwnerId = a2.accountOwnerId
     ORDER BY a1.accountId;
---관리자 / 계좌조회 / 계좌조회
+--****관리자 / 계좌조회 / 계좌조회****
 SELECT a1.accountId, a1.balance, a1.accountCreateDate, a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone
     FROM Account_ a1, AccountOwner_ a2
     WHERE a1.accountOwnerId = a2.accountOwnerId
     AND a1.accountId = '111-1111-1'
     ORDER BY a1.accountId;
---관리자 / 계좌조회 / 계좌주
+--****관리자 / 계좌조회 / 계좌주****
 SELECT a1.accountId, a1.balance, a1.accountCreateDate, a1.lastUpdateDate, a2.accountOwnerName, a2.accountOwnerPhone
     FROM Account_ a1, AccountOwner_ a2
     WHERE a1.accountOwnerId = a2.accountOwnerId
