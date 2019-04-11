@@ -363,7 +363,7 @@ public class AccountDAO {
 			return result;
 		}
 	
-	//계좌 자동 생성 메소드
+	//계좌주 자동 생성 메소드
 	public String getNewAccountOwnerId() {
 		String result = "";
 				
@@ -472,6 +472,59 @@ public class AccountDAO {
 		         se.printStackTrace();
 		      }
 		}
+		
+		return result;
+	}
+	
+	//계좌 내역 조회
+	public List<AccountHistory> list2(String key, Map<String, String> value){
+		List<AccountHistory> result = new ArrayList<AccountHistory>();
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+				
+		try {
+					
+			conn = OracleConnection.connect();
+					
+			String sql = "SELECT accountid, money, inoutdate, gubun, balance\r\n" + 
+					"    FROM AccountHistory_\r\n" + 
+					"    WHERE accountid = ? \r\n" + 
+					"    AND inoutdate >= ? \r\n"+
+					"ORDER BY inoutdate";
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, value.get("1"));
+			stmt.setString(2, value.get("2"));
+					
+			ResultSet rs = stmt.executeQuery();
+					
+			while(rs.next()) {
+				String accountid = rs.getString("accountid");
+				int money = rs.getInt("money");
+				String inoutdate = rs.getString("inoutdate");
+				String gubun = rs.getString("gubun");
+				int balance = rs.getInt("balance");
+				
+				result.add(new AccountHistory(accountid, money, inoutdate, gubun, balance));
+			}
+
+			rs.close();
+					
+			}catch(ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			} finally {
+					try{
+						if(stmt!=null)
+							stmt.close();
+					}catch(SQLException se2){
+					}
+					try{
+						OracleConnection.close();
+					}catch(SQLException se){
+						se.printStackTrace();
+					}
+			}
 		
 		return result;
 	}

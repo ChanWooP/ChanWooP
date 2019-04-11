@@ -97,7 +97,7 @@ public class AccountService {
 			switch(c) {
 			case 1: this.menu99_1(sc); break;
 			case 2: this.menu99_2(sc); break;
-			case 3: break;
+			case 3: this.menu99_3(sc); break;
 			}
 		}
 	}
@@ -228,6 +228,37 @@ public class AccountService {
 		
 		List<AccountList> result = this.daoA.list("name/phone", map);
 		accountList(result);
+	}
+	
+	private void menu99_3(Scanner sc) {
+		
+		
+		System.out.print("계좌번호>");
+		String accountId = sc.nextLine();
+		System.out.print("내역출력시작일(yyyymmdd)>");
+		String inoutdate = sc.nextLine();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("1", accountId);
+		map.put("2", inoutdate);
+		
+		List<AccountHistory> result = this.daoA.list2("acc", map);
+		System.out.printf("(%s)님의 계좌목록%n",accountId);
+		this.accountHistory(result);
+	}
+	
+	private void accountHistory(List<AccountHistory> list) {
+		System.out.println("----------------------------------------");
+		System.out.println("계좌번호 / 금액 / 입출금일 / 구분 / 잔액");
+		for(AccountHistory a : list) {
+			System.out.println(a.toString());
+		}
+		if(list.size() == 0) {
+			System.out.println("자료가 없습니다.");
+		}else {
+			System.out.printf("총 %d건%n",list.size());
+		}
+		
 	}
 	
 	private void accountList(List<AccountList> list) {
