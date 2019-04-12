@@ -24,8 +24,7 @@ public class MainMenuService {
 	}
 
 	private void menu1(Scanner sc) {
-		// TODO Auto-generated method stub
-		
+		new EmployeeService().menu(sc);
 	}
 
 	private void menu2(Scanner sc) {
@@ -49,13 +48,11 @@ public class MainMenuService {
 	}
 
 	private void menu22(Scanner sc) {
-		// TODO Auto-generated method stub
-		
+		new DepartmentService().menu(sc);
 	}
 
 	private void menu23(Scanner sc) {
-		// TODO Auto-generated method stub
-		
+		new JobService().menu(sc);
 	}
 
 	private void menu3(Scanner sc, String id) {

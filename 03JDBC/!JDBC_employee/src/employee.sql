@@ -171,6 +171,9 @@ select * from employees
 선택>1
 
 
+
+
+
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리 > 지역 입력
 --------------
 지역번호 / 지역명
@@ -181,8 +184,12 @@ REG04 / 경북
 --------------
 신규 지역 이름>서울
 신규 지역 정보 입력 완료!
+INSERT INTO regions(regId, reg_name)
+VALUES('REG04', '김포');
 
-
+INSERT INTO departments(deptId, dept_name)
+VALUES('DEPT04', '지원부');
+commit;
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리
 1.지역입력  2.지역출력  3.지역삭제
 선택>2
@@ -194,7 +201,18 @@ REG03 / 경남
 REG04 / 경북
 REG05 / 서울
 --------------
+SELECT r.regid, r.reg_name 
+        ,(SELECT count(*) FROM employees WHERE regId = r.regId) "count_"
+FROM regions r;
 
+SELECT d.deptId, d.dept_name
+		,(SELECT count(*) FROM employees WHERE deptId = d.deptId) count_
+		FROM departments d
+SELECT CONCAT('REG', LPAD(NVL(SUBSTR(MAX(regId), 4), 0) + 1, 2, 0))AS newId 
+FROM regions;
+
+SELECT CONCAT('DEPT', LPAD(NVL(SUBSTR(MAX(deptId), 5), 0) + 1, 2, 0))AS newId 
+FROM departments;
 
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리
 1.지역입력  2.지역출력  3.지역삭제
@@ -209,7 +227,11 @@ REG05 / 서울 / X
 --------------
 지역번호>REG04
 REG04 지역이 삭제되었습니다.
+DELETE FROM regions
+WHERE regId = '';
 
+DELETE FROM departments
+WHERE deptId = 'DEPT04';
 
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리
 1.지역입력  2.지역출력  3.지역삭제

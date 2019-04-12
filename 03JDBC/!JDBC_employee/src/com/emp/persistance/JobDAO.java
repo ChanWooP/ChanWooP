@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.connection.OracleConnection;
-import com.emp.domain.Region;
+import com.emp.domain.Job;
 
-public class RegionDAO {
-
-	public List<Region> list(String key, String value) {
-		List<Region> result = new ArrayList<Region>();
+public class JobDAO {
+	public List<Job> list(String key, String value) {
+		List<Job> result = new ArrayList<Job>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -21,20 +20,21 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "SELECT r.regid, r.reg_name \r\n"
-					+ "        ,(SELECT count(*) FROM employees WHERE regId = r.regId) \"count_\"\r\n"
-					+ "FROM regions r";
+			String sql = "SELECT j.jobId, j.job_title,j.min_basicpay\r\n" + 
+					"		,(SELECT count(*) FROM employees WHERE jobId = j.jobId) count_\r\n" + 
+					"		FROM jobs j ";
 
 			stmt = conn.prepareStatement(sql);
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String regId = rs.getString("regId");
-				String reg_name = rs.getString("reg_name");
+				String jobId = rs.getString("jobId");
+				String job_title = rs.getString("job_title");
+				int min_basicpay = rs.getInt("min_basicpay");
 				int count_ = rs.getInt("count_");
 
-				result.add(new Region(regId, reg_name, count_));
+				result.add(new Job(jobId, job_title, min_basicpay, count_));
 			}
 
 			rs.close();
@@ -55,8 +55,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public String newRegionId() {
+	
+	public String newJobId() {
 		String result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -65,8 +65,8 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "SELECT CONCAT('REG', LPAD(NVL(SUBSTR(MAX(regId), 4), 0) + 1, 2, 0)) \r\n"
-					+ "	AS newId FROM regions";
+			String sql = "SELECT CONCAT('JOB', LPAD(NVL(SUBSTR(MAX(jobId), 4), 0) + 1, 2, 0))AS newId \r\n" + 
+					"FROM jobs";
 
 			stmt = conn.prepareStatement(sql);
 
@@ -94,8 +94,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public int regionInsert(String regId, String reg_name) {
+	
+	public int jobInsert(String jobId, String job_title, int min_basicpay) {
 
 		int result = 0;
 
@@ -106,14 +106,14 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "INSERT INTO regions(regId, reg_name)\r\n" +
-							"VALUES(?, ?)";
+			String sql = "INSERT INTO jobs(jobId, job_title, min_basicpay)\r\n" + 
+					"VALUES(? , ?, ?)";
 
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, regId);
-			stmt.setString(2, reg_name);
-
+			stmt.setString(1, jobId);
+			stmt.setString(2, job_title);
+			stmt.setInt(3, min_basicpay);
 			result = stmt.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -138,8 +138,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public int regionDelete(String regId) {
+	
+	public int jobDelete(String jobId) {
 
 		int result = 0;
 
@@ -150,11 +150,12 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "DELETE FROM regions\r\n" + "WHERE regId = ?";
+			String sql = "DELETE FROM jobs\r\n" + 
+					"WHERE jobId = ?";
 
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, regId);
+			stmt.setString(1, jobId);
 
 			result = stmt.executeUpdate();
 

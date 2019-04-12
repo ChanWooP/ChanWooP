@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.connection.OracleConnection;
-import com.emp.domain.Region;
+import com.emp.domain.Department;
 
-public class RegionDAO {
-
-	public List<Region> list(String key, String value) {
-		List<Region> result = new ArrayList<Region>();
+public class DepartmentDAO {
+	public List<Department> list(String key, String value) {
+		List<Department> result = new ArrayList<Department>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -21,20 +20,20 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "SELECT r.regid, r.reg_name \r\n"
-					+ "        ,(SELECT count(*) FROM employees WHERE regId = r.regId) \"count_\"\r\n"
-					+ "FROM regions r";
+			String sql = "SELECT d.deptId, d.dept_name\r\n" + 
+					"		,(SELECT count(*) FROM employees WHERE deptId = d.deptId) count_\r\n" + 
+					"		FROM departments d";
 
 			stmt = conn.prepareStatement(sql);
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String regId = rs.getString("regId");
-				String reg_name = rs.getString("reg_name");
+				String deptId = rs.getString("deptId");
+				String dept_name = rs.getString("dept_name");
 				int count_ = rs.getInt("count_");
 
-				result.add(new Region(regId, reg_name, count_));
+				result.add(new Department(deptId, dept_name, count_));
 			}
 
 			rs.close();
@@ -55,8 +54,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public String newRegionId() {
+	
+	public String newDepartmentId() {
 		String result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -65,8 +64,8 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "SELECT CONCAT('REG', LPAD(NVL(SUBSTR(MAX(regId), 4), 0) + 1, 2, 0)) \r\n"
-					+ "	AS newId FROM regions";
+			String sql = "SELECT CONCAT('DEPT', LPAD(NVL(SUBSTR(MAX(deptId), 5), 0) + 1, 2, 0))AS newId \r\n" + 
+					"FROM departments";
 
 			stmt = conn.prepareStatement(sql);
 
@@ -94,8 +93,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public int regionInsert(String regId, String reg_name) {
+	
+	public int departmentInsert(String deptId, String dept_name) {
 
 		int result = 0;
 
@@ -106,13 +105,13 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "INSERT INTO regions(regId, reg_name)\r\n" +
-							"VALUES(?, ?)";
+			String sql = "INSERT INTO departments(deptId, dept_name)\r\n" + 
+					"VALUES(?, ?)";
 
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, regId);
-			stmt.setString(2, reg_name);
+			stmt.setString(1, deptId);
+			stmt.setString(2, dept_name);
 
 			result = stmt.executeUpdate();
 
@@ -138,8 +137,8 @@ public class RegionDAO {
 		}
 		return result;
 	}
-
-	public int regionDelete(String regId) {
+	
+	public int departmentDelete(String deptId) {
 
 		int result = 0;
 
@@ -150,11 +149,12 @@ public class RegionDAO {
 
 			conn = OracleConnection.connect();
 
-			String sql = "DELETE FROM regions\r\n" + "WHERE regId = ?";
+			String sql = "DELETE FROM departments\r\n" + 
+					"WHERE deptId = ?";
 
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, regId);
+			stmt.setString(1, deptId);
 
 			result = stmt.executeUpdate();
 
@@ -180,4 +180,5 @@ public class RegionDAO {
 		}
 		return result;
 	}
+	
 }
