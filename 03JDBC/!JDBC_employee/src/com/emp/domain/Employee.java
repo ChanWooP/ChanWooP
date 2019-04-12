@@ -9,6 +9,20 @@ public class Employee {
 		
 	}
 
+	public Employee(String empId,String name_,String ssn,String hiredate
+			,String phone,String regId,String deptId,String jobId, int basicpay,int extrapay) {
+		this.empId = empId;
+		this.name_ = name_;
+		this.ssn = ssn; 
+		this.hiredate = hiredate;
+		this.phone = phone;
+		this.regId = regId;
+		this.deptId = deptId;
+		this.jobId  = jobId;
+		this.basicPay = basicpay;
+		this.extrapay = extrapay;
+	}
+	
 	public Employee(String empId, String name_, String ssn, String hiredate, String phone, String regId,
 			String reg_name, String deptId, String dept_name, String jobId, String job_title, int basicPay,
 			int extrapay, int total) {

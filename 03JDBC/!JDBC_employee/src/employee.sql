@@ -127,7 +127,9 @@ ALTER TABLE employees
         , CONSTRAINTS employees_jobId_fk FOREIGN KEY(jobId)
             REFERENCES jobs(jobId));
 
-
+DELETE FROM employees
+    WHERE empId = 's';
+commit;
 INSERT INTO employees  (empId, name_, ssn, hiredate, phone
     , regId, deptId, jobId, basicpay, extrapay)
     VALUES ((SELECT CONCAT('EMP', LPAD(NVL(SUBSTR(MAX(empId), 4), 0) + 1, 3, 0)) 
@@ -189,6 +191,9 @@ VALUES('REG04', '김포');
 
 INSERT INTO departments(deptId, dept_name)
 VALUES('DEPT04', '지원부');
+
+INSERT INTO jobs(jobId, job_name)
+VALUES('JOB04', '몰라');
 commit;
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리
 1.지역입력  2.지역출력  3.지역삭제
@@ -208,11 +213,19 @@ FROM regions r;
 SELECT d.deptId, d.dept_name
 		,(SELECT count(*) FROM employees WHERE deptId = d.deptId) count_
 		FROM departments d
+        
+SELECT j.jobId, j.job_title,j.min_basicpay
+		,(SELECT count(*) FROM employees WHERE jobId = j.jobId) count_
+		FROM jobs j      
+        
 SELECT CONCAT('REG', LPAD(NVL(SUBSTR(MAX(regId), 4), 0) + 1, 2, 0))AS newId 
 FROM regions;
 
 SELECT CONCAT('DEPT', LPAD(NVL(SUBSTR(MAX(deptId), 5), 0) + 1, 2, 0))AS newId 
 FROM departments;
+
+SELECT CONCAT('JOB', LPAD(NVL(SUBSTR(MAX(jobId), 4), 0) + 1, 2, 0))AS newId 
+FROM jobs;
 
 >>직원 관리 v2.0 > 기초 정보 관리 > 지역 관리
 1.지역입력  2.지역출력  3.지역삭제
@@ -307,8 +320,20 @@ JOB03 / 사원 / 1000000
 EMP001 / 홍길동 / 771212-1022432 / 1998-10-11 / 011-2356-4528 / 서울 / 기획부 / 부장 / 2,610,000 / 200,000 / 2,810,000
 EMP002 / 이순신 / 801007-1544236 / 2000-11-29 / 010-4758-6532 / 경기 / 총무부 / 사원 / 1,320,000 / 200,000 / 1,520,000
 ...
-
-
+CREATE OR REPLACE VIEW empView2
+AS
+SELECT e.empId, name_, ssn, hiredate, phone
+        , r.regId, r.reg_name, d.deptId, d.dept_name, j.jobId, j.job_title
+        , e.basicpay, e.extrapay, (e.basicpay + e.extrapay) pay
+    FROM employees e, regions r, departments d, jobs j
+    WHERE e.regId = r.regId
+    AND e.deptId = d.deptId
+    AND e.jobId = j.jobId;
+    
+SELECT empId, name_, ssn, hiredate, phone
+        , regId, reg_name, deptId, dept_name, jobId, job_title
+        , basicpay, extrapay, (basicpay + extrapay) total
+    FROM empView2
 >>직원 관리 v2.0 > 직원 관리 > 직원 전체 출력
 1.사번정렬  2.이름정렬  3.지역명정렬  4.부서명정렬  5.직위명정렬
 선택>0

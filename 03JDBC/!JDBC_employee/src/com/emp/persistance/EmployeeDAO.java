@@ -97,4 +97,138 @@ public class EmployeeDAO {
 		}
 		return result;
 	}
+	
+	public String newEmpId() {
+		String result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+
+			conn = OracleConnection.connect();
+
+			String sql = "SELECT CONCAT('EMP', LPAD(NVL(SUBSTR(MAX(empId), 4), 0) + 1, 3, 0)) \r\n" + 
+					"        AS newId FROM employees";
+
+			stmt = conn.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				result = rs.getString("newId");
+			}
+
+			rs.close();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			}
+			try {
+				OracleConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public int empInsert(Employee es) {
+		int result = 0;
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+
+			conn = OracleConnection.connect();
+
+			String sql = "INSERT INTO employees  (empId, name_, ssn, hiredate, phone\r\n" + 
+					"    , regId, deptId, jobId, basicpay, extrapay)\r\n" + 
+					"    VALUES ( ?, ?, ?, ?, ?\r\n" + 
+					"        , ?, ?, ?, ?, ?)";
+
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, es.getEmpId());
+			stmt.setString(2, es.getName_());
+			stmt.setString(3, es.getSsn());
+			stmt.setString(4, es.getHiredate());
+			stmt.setString(5, es.getPhone());
+			stmt.setString(6, es.getRegId());
+			stmt.setString(7, es.getDeptId());
+			stmt.setString(8, es.getJobId());
+			stmt.setInt(9, es.getBasicPay());
+			stmt.setInt(10, es.getExtrapay());
+			
+			result = stmt.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			try {
+				// 롤백
+				conn.rollback();
+			} catch (SQLException e1) {
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			}
+			try {
+				OracleConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public int empDelete(String empId) {
+		int result = 0;
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+
+			conn = OracleConnection.connect();
+
+			String sql = "DELETE FROM employees\r\n" + 
+					"    WHERE empId = ?";
+
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, empId);
+			
+			result = stmt.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			try {
+				// 롤백
+				conn.rollback();
+			} catch (SQLException e1) {
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			}
+			try {
+				OracleConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return result;
+	}
 }
