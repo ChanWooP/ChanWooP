@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		background-image:url(http://ww2.sjkoreancatholic.org/files/testing_image.jpg);
+		background-size:100%;
+		background-attachment:fixed; 
+	}
+	#div1{
+		background-image:url(https://cdn.pixabay.com/photo/2017/09/12/11/56/universe-2742113__340.jpg);
+		background-size:100%;
+		background-repeat:no-repeat;
+		background-position: bottom;
+		border:1px solid black;
+		width:100px;
+		height:100px;
+	}
+	#div2{
+		background-image:url(https://cdn.pixabay.com/photo/2017/09/12/11/56/universe-2742113__340.jpg);
+		background-size:100%;
+		background-repeat:repeat-y;
+		border:1px solid black;
+		width:100px;
+		height:100px;
+	}
+</style>
+</head>
+<body>
+	<!--background-attachment는 기본값 fixed 스크롤에따라 배경이 같이 이동 고정 풀 수 있음  -->
+	<!--background-size 지정 가능  -->
+	<!--background-repeat은 기본적으로 x,y둘다 반복패턴 패턴 없애기는 no-repeat   -->
+	<!--background-position은 위치 지정   -->
+	<div id="div1"></div><br>
+	<div id="div2"></div><br>
+</body>
+</html>
