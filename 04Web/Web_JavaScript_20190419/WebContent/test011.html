@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var money =  parseInt(Math.random() * 5001);
+var one = money
+console.log(money);
+var count1000, count500, count100, count50, count10;
+
+count1000 = parseInt(money/1000);
+money = parseInt(money%1000);
+
+count500 = parseInt(money/500);
+money = parseInt(money%500);
+
+count100 = parseInt(money/100);
+money = parseInt(money%100);
+
+count50 = parseInt(money/50);
+money = parseInt(money%50);
+
+count10 = parseInt(money/10);
+money = parseInt(money%10);
+
+document.getElementById("demo").innerHTML = "money : "
+											+ one 
+											+ "<br>1000 / 500 / 100/ 50 / 10"
+											+ "<br>" + count1000 + " / " + count500 + " / " 
+											+ count100 + " / " + count50 + " / " + count10;
+
+</script>
+</body>
+</html>

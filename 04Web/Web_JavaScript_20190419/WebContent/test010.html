@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+/*
+ 0~100 사이
+  90-100 a
+  80-89 b
+  70-79 c
+  60-69 d
+  0-59 f
+ */
+ 
+var sub =  parseInt(Math.random() * 101); //방법 1 0~100
+var or = Math.floor(Math.random() * 101); //방법 2 0~100
+var rank_;
+if(sub >= 90){
+	rank_ = "A";
+}else if(sub >= 80){
+	rank_ = "B";
+}else if(sub >= 70){
+	rank_ = "C";
+}else if(sub >= 60){
+	rank_ = "D";
+}else{
+	rank_ = "F";
+}
+document.getElementById("demo").innerHTML = "점수 : " + sub + "등급 : " + rank_;
+
+</script>
+</body>
+</html>

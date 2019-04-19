@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var sub1 =  parseInt(Math.random() * 101);
+var sub2 =  parseInt(Math.random() * 101);
+var sub3 =  parseInt(Math.random() * 101);
+//var sub = new Array(sub1, sub2, sub3);
+var sum_ = sub1+sub2+sub3;
+var avg_ = (sum_/3).toFixed(1); 
+var result = "불합격";
+
+/*
+if(avg_ >= 60){
+	result = "합격";
+	for(var a=0; a<3; ++a){
+		if(sub[a] < 40){
+			result = "과락";
+		}
+	}
+}
+*/
+
+if(avg_ >= 60){
+	result = "합격";
+	if(sub1 < 40){
+		result = "과락";
+	}else if(sub2 < 40){
+		result = "과락";
+	}else if(sub3 < 40){
+		result = "과락";
+	}
+}
+
+
+
+document.getElementById("demo").innerHTML = "과목1 : " + sub1
+											+"<br> 과목2 : " + sub2
+											+"<br> 과목3 : " + sub3
+											+"<br> 총점 : " + sum_
+											+"<br> 평균 : " + avg_
+											+"<br>" + result;
+</script>
+</body>
+</html>
