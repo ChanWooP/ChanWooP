@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var result = "";
+var array = [[100,1], [90,1], [80,1],
+			[70,1], [76,1], [50,1]];	
+
+for(var a=0; a<array.length; ++a){
+	for(var b=0; b<array.length; ++b){
+		if(array[a][0] < array[b][0]){
+			array[a][1] += 1;
+		}
+	}
+}
+
+
+result += "<table border='1'>";
+result += "<tr><td>순번</td><td>점수</td><td>등수</td><tr>";
+
+for(var a=0; a<array.length; ++a){
+	result += "<tr>";
+	result += "<td style='text-align:right;'>" + (a+1) + "</td>";
+	result += "<td style='text-align:right;'>" + array[a][0] +  "</td>";
+	result += "<td style='text-align:right;'>" +  array[a][1] +  "</td>";
+	result += "</tr>";
+}
+
+result += "</table>";
+document.getElementById("demo").innerHTML = result;
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var text = prompt("Please enter your name","null"); // (입력박스에 출력할 텍스트, 기본입력값)
+if(text == null){
+	console.log("취소버튼 누름");
+}else if(text == ""){
+	console.log("확인버튼 누름 / 입력값이 없음")
+}else{
+	console.log("확인버튼 누름 / 입력값이 있음");
+	console.log(typeof(text)); // 변수의 타입 반환
+	console.log(text);
+}
+</script>
+</body>
+</html>

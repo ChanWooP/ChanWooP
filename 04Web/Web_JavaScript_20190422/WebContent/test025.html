@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+
+var array = [];
+var result = "";
+
+for(var a=0; a<5; ++a){
+	var temp = [];
+	array[a] = temp;
+	temp[0] = a+1;
+	for(var b=0; b<4; ++b){
+		temp[b+1] = temp[b] + 5;
+	}
+}
+
+result += "<table border='1'>";
+for(var a=0; a<array.length; ++a){
+	var temp = array[a];
+	result += "<tr>"
+	for(var b=0; b<temp.length; ++b){
+		result += "<td>" + temp[b]+ "</td>";		
+	}
+	result += "</tr>"
+	
+}
+result += "</table>";
+
+document.getElementById("demo").innerHTML = result;
+</script>
+</body>
+</html>

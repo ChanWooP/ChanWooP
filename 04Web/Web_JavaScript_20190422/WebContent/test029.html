@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style>
+	table {
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	
+	th, td {
+	  text-align: left;
+	  padding: 8px;
+	}
+	
+	tr:nth-child(even){background-color: #f2f2f2}
+	
+	th {
+	  background-color: #4CAF50;
+	  color: white;
+	}
+</style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var array = [];
+var result = "";
+
+while(true) {
+	var a = prompt("'번호 이름 과목1 과목2 과목3' 항목의 자료 입력", "");
+	if (a == null || a == "") break;
+	var arr = a.split(" ");
+	array.push(arr);
+}
+
+for(var a=0; a<array.length; ++a){
+	var total = 0;
+	var avg_ = 0;
+	for(b=2; b<5; ++b){
+		total += parseInt(array[a][b]);
+	}
+	avg_ = total / 3;
+	array[a].push(total);
+	array[a].push(avg_.toFixed(1));
+	array[a].push(1);
+}
+
+
+for(var a=0; a<array.length; ++a){
+	for(var b=0; b<array.length; ++b){
+		if(array[a][5] < array[b][5]){
+			++array[a][7];
+		}
+	}
+}
+
+array.sort(function (a,b){return a[0]-b[0];});
+
+result += "<table>";
+result += "<tr><th>번호</th><th>이름</th><th>과목1</th><th>과목2</th><th>과목3</th><th>총점</th><th>평균</th><th>등수</th></tr>"
+for(var a=0; a<array.length; ++a){
+	result += "<tr>";
+	for(var b=0; b<array[a].length; ++b){
+		result += "<td>"+array[a][b]+"</td>";
+	}
+	result += "</tr>";
+}
+result += "</table>";
+document.getElementById("demo").innerHTML = result;
+
+
+</script>
+</body>
+</html>

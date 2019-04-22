@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style></style>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<div id="demo"></div>
+<script>
+var text = prompt("Please enter your name","0");
+var result = "";
+
+if(text == null){
+	result += "취소되었습니다";
+}else if(text == ""){
+	result += "입력값이 없습니다";
+}else{
+	
+	for(var a=1; a<10; ++a){
+		result += text + "*" + a + "=" + parseInt(text)*a; 
+		result += "<br>";
+	}
+}
+
+document.getElementById("demo").innerHTML = result;
+</script>
+</body>
+</html>
