@@ -14,13 +14,13 @@
         var btn2 = document.getElementById("btn2");
         var btn3 = document.getElementById("btn3");
         btn1.onclick = function() {
-            myFunction("가위");
+            myFunction(0);
         };
         btn2.onclick = function() {
-            myFunction("바위");
+            myFunction(1);
         };
         btn3.onclick = function() {
-            myFunction("보");
+            myFunction(2);
         };
     };
     
@@ -29,6 +29,7 @@
     
     function myFunction(value) {
         var num = parseInt(Math.random() * 3);
+        var values;
         var com;
         
         if(num == 0){
@@ -39,12 +40,22 @@
             com = "보";
         }
         
-        if(value == com){
-            result += "사용자 :"+value+" / 컴퓨터:"+com+" 무승부 <br>";
-        }else if(value=="가위" && com=="보" || value=="바위" && com=="가위" || value=="보" && com=="바위"){
-            result += "사용자 :"+value+" / 컴퓨터:"+com+" 사용자 승 <br>";
+        if(value == 0){
+        	values = "가위";
+        }else if(value == 1){
+        	values = "바위";
         }else{
-            result += "사용자 :"+value+" / 컴퓨터:"+com+" 컴퓨터 승<br>";
+        	values = "보";
+        }
+        
+        if(value == num){
+            result += "사용자 :"+values+" / 컴퓨터:"+com+" 무승부 <br>";
+        }else if(values=="가위" && com=="보" || values=="바위" && com=="가위" || values=="보" && com=="바위"){
+            result += "사용자 :"+values+" / 컴퓨터:"+com+" 사용자 승 <br>";
+            alert(value-num);
+        }else{
+            result += "사용자 :"+values+" / 컴퓨터:"+com+" 컴퓨터 승<br>";
+            alert(value-num);
         }
         
         document.getElementById("demo").innerHTML = result;
