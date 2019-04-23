@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	#demo {
+		margin-top : 10px;
+	}
+
+</style>
+<script>
+var width_;
+var height_;
+	
+	function myfunction(value){
+		document.querySelector("#demo > img").src = value;
+	}
+	
+	function over(obj){
+		width_ = obj.width;
+		height_ = obj.height;
+		obj.width = "500";
+		obj.height = "500";
+	}
+	
+	function out(obj){
+		obj.width = width_;
+		obj.height = height_;
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button onclick="myfunction(this.value);" value="img/50000.jpg">50000</button>
+	<button onclick="myfunction(this.value);" value="img/10000.jpg">10000</button>
+	<button onclick="myfunction(this.value);" value="img/5000.jpg">5000</button>
+	<button onclick="myfunction(this.value);" value="img/1000.jpg">1000</button>
+	<div id="demo"><img onmouseover="over(this)" onmouseout="out(this)" src="img/1000.jpg"></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style></style>
+<script>
+	function myfunction(num){
+		var result = "";
+		
+		for(var a=1; a<10; ++a){
+			result += num + "*" + a + "=" + num*a + "<br>";
+		}
+		
+		document.getElementById("demo").innerHTML = result;
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button onclick="myfunction(1);">버튼1</button>
+	<button onclick="myfunction(2);">버튼2</button>
+	<button onclick="myfunction(3);">버튼3</button>
+	<button onclick="myfunction(4);">버튼4</button>
+	<button onclick="myfunction(5);">버튼5</button>
+	<button onclick="myfunction(6);">버튼6</button>
+	<button onclick="myfunction(7);">버튼7</button>
+	<button onclick="myfunction(8);">버튼8</button>
+	<button onclick="myfunction(9);">버튼9</button>
+	
+	<div id="demo"></div>
+</body>
+</html>

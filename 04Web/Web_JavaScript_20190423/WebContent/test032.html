@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style></style>
+<script>
+	function myfunction(a, b, c){
+		console.log(a);
+		console.log(b);
+		console.log(c);
+		alert("hello");
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button onclick="myfunction(1);">버튼</button> <!-- 1, undefined, undefined -->
+	<button onclick="myfunction(1, 2);">버튼</button> <!-- 1, 2, undefined -->
+	<button onclick="myfunction(1, 2, 3);">버튼</button> <!-- 1, 2, 3 -->
+	<div id="demo"></div>
+</body>
+</html>

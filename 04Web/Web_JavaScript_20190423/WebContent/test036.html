@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	#demo {
+		width: 300px; 
+		height: 100px; 
+		border: solid black 1px; 
+		text-align: center;
+	}
+
+</style>
+<script>
+	function myfunction(color){
+		var num = parseInt(Math.random() * 256);
+		var att = document.getElementById("demo").getAttribute("style");
+		var att2 = att.split("(");
+		var att3 = att2[1].split(",");
+		var att4 = att3[2].split(")"); 
+		
+		if(color == "r"){
+			att3[0] = num;
+		}else if(color == "g"){
+			att3[1] = num;
+		}else{
+			att4[0] = num;
+		}
+		
+		document.getElementById("demo").style = "background-color:rgb("+att3[0]+","+att3[1]+","+att4[0]+");";
+		document.getElementById("rgb_").innerHTML = "rgb("+att3[0]+","+att3[1]+","+att4[0]+")";
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<h2 id="rgb_">rgb(0,191,255)</h2>
+	
+	<div id="demo" style="background-color:rgb(0,191,255);">
+	결과보기
+	</div>
+	<button onclick="myfunction('r');">r</button>
+	<button onclick="myfunction('g');">g</button>
+	<button onclick="myfunction('b');">b</button>
+</body>
+</html>

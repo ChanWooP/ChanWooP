@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style></style>
+<script>
+	var array = [["job001","차장","4000000"]
+				,["job002","과장","3000000"]
+				,["job003","대리","2000000"]
+				,["job004","사원","1000000"]];
+	
+	function myfunction(obj){
+		var sel = obj.value;
+		var arrays = search(sel);
+		var result = "";
+		
+		for(var a=0; a<arrays.length; ++a){
+			result += arrays[a];
+			result += " ";
+		}
+		
+		document.getElementById("demo").innerHTML = result;
+	}
+	
+	function search(jobid){
+		var result = undefined;
+		
+		for(var a=0; a<array.length; ++a){
+			var temp = array[a];
+			if(temp[0] == jobid){
+				result = temp;
+			}
+		}
+		return result;
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<select id="mySelect" onchange="myfunction(this)">
+		<option value="job001">차장</option>
+		<option value="job002">과장</option>
+		<option value="job003">대리</option>
+		<option value="job004">사원</option>
+	</select>
+	<div id="demo"></div>
+</body>
+</html>
