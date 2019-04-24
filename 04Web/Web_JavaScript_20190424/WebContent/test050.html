@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	#demo{
+		border: solid 1px red;
+	}
+
+	#child{
+		min-height: 100px;
+		min-width: 100px;
+		border: solid 1px black;
+		margin: 10px;
+	}
+</style>
+<script>
+	function myfunction(){
+		
+		//해당 아이디의 엘리먼트 가져오기
+		var d1 = document.getElementById("child");
+		d1.innerHTML = "Hello World!"; // 해당 아이디안의 HTML 변경
+		
+		//해당 테그들을 모두 가져와 배열에 담는다
+		var d2 = document.getElementsByTagName("p");
+		console.log(d2); // 2
+		
+		d2[0].innerHTML = "world";
+		d2[1].innerHTML = "hello";
+		
+		
+		//해당 클래스들을 모두 가져와 배열에 담는다
+		var d3 = document.getElementsByClassName("cla");
+		d3[0].style.color = 'blue';
+		
+		
+		//해당 테그또는 아이디 클래스 등 동일한 것들을 배열에 담는다
+		var d4 = document.querySelectorAll("div");
+		d4[0].innerHTML = "";
+		
+		//해당 이름을 가진 것을 가져와 배열에 담는다
+		var d5 = document.getElementsByName("animals");
+	    for(var i = 0; i < d5.length; i++){
+	    	d5[i].checked = true;
+	    }
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button onclick="myfunction();">버튼</button>
+	<div class="cla" style="color:red;"> 
+		<p>hello</p>
+		<p>world</p>
+	</div>
+	<div id="demo">
+		<div id="child"></div>
+	</div>
+	
+	<input type="checkbox" name="animals" value="1">1
+	<input type="checkbox" name="animals" value="1">2
+	<input type="checkbox" name="animals" value="1">3
+	<input type="checkbox" name="animals" value="1">4
+</body>
+</html>

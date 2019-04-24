@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	img{
+		width: 100px;
+		height: 100px;
+	}
+</style>
+<script>
+	function myfunction(){
+		var d = document.getElementsByTagName("img");
+		var date = new Date();
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		
+		if(hours >= 10){
+			var f = String(hours).substr(0,1)
+			var l = String(hours).substr(1,2)
+			
+			d[0].src = "img/"+ f +".jpg";
+			d[1].src = "img/"+ l +".jpg";
+		}else{
+			d[0].src = "img/0.jpg";
+			d[1].src = "img/"+ hours +".jpg";
+		}
+
+		if(minutes >= 10){
+			var f = String(minutes).substr(0,1)
+			var l = String(minutes).substr(1,2)
+			
+			d[3].src = "img/"+ f +".jpg";
+			d[4].src = "img/"+ l +".jpg";
+		}else{
+			d[3].src = "img/0.jpg";
+			d[4].src = "img/"+ minutes +".jpg";
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button onclick="myfunction();">버튼</button>
+	<div id="demo">
+		<img id="01" src="img/0.jpg">
+		<img id="02"src="img/0.jpg">
+		<img src="img/E.png">
+		<img id="03"src="img/0.jpg">
+		<img id="04"src="img/0.jpg">
+	</div>
+</body>
+</html>
