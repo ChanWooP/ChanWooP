@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style></style>
+<script>
+	function myfunction1(){
+		var intro = document.getElementById("intro");
+		console.log(intro.innerHTML);
+	}
+	
+	function myfunction2(){
+		var intro = document.getElementById("intro");
+		console.log(intro.innerText);
+	}
+	
+	function myfunction3(){
+		var intro = document.getElementById("intro");
+		console.log(intro.textContent);
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<p id="intro">
+	a
+	<span style="display:none">b</span>
+	<span>c</span>
+	</p>
+	<button onclick="myfunction1()">innerHTML</button> <!-- HTML 코드 가져오기 -->
+	<button onclick="myfunction2()">innerText</button> <!-- 화면에 있는 모든 텍스트 다 가져오기 -->
+	<button onclick="myfunction3()">textContent</button> <!-- 소스상에 있는 모든 텍스트 다 가져오기 -->
+	<div id="demo"></div>
+</body>
+</html>

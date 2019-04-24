@@ -2,17 +2,138 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JavaScript</title>
-<style></style>
-<script>
-	function myfunction(){
+<title>쌍용교육센터</title>
 
+<style>
+#container {
+	width: 400px;
+	height: 400px;
+	position: relative;
+	background: #fff6e6;
+}
+#animate {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: orange;
+}
+</style>
+
+<script>
+
+	function myFunction1(){
+		var elem = document.getElementById("animate");
+		var pos = 0;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (pos == 350) {
+				clearInterval(id);
+			} else {
+				pos++;
+				elem.style.top = pos + "px";
+				elem.style.left = pos + "px";
+			}
+		}
 	}
+	
+	function myFunction2(){
+		var elem = document.getElementById("animate");
+		var pos = 0;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (pos == 350) {
+				clearInterval(id);
+			} else {
+				pos++;
+				elem.style.top = 0 + "px";
+				elem.style.left = pos + "px";
+			}
+		}
+	}
+	
+	function myFunction3(){
+		var elem = document.getElementById("animate");
+		var pos = 0;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (pos == 350) {
+				clearInterval(id);
+			} else {
+				pos++;
+				elem.style.top = pos + "px";
+				elem.style.left = 0 + "px";
+			}
+		}
+	}
+	
+	function myFunction4(){
+		var elem = document.getElementById("animate");
+		var pos = 0;
+		var pos2 = 0;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (pos == 350) {
+				pos2--;
+				elem.style.top = 0 + "px";
+				elem.style.left = pos2 + "px";
+				
+				if(pos2 == 0){
+					pos = pos2;
+				}
+			} else if(pos2 == 0) {
+				pos++;
+				elem.style.top = 0 + "px";
+				elem.style.left = pos + "px";
+				
+				if(pos == 350){
+					pos2 = pos;
+				}
+			}
+		}
+	}
+	
+	function myFunction5(){
+		var elem = document.getElementById("animate");
+		var pos = 0;
+		var pos2 = 0;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (pos == 350) {
+				pos2--;
+				elem.style.top = pos2 + "px";
+				elem.style.left = 0 + "px";
+				
+				if(pos2 == 0){
+					pos = pos2;
+				}
+			} else if(pos2 == 0) {
+				pos++;
+				elem.style.top = pos + "px";
+				elem.style.left = 0 + "px";
+				
+				if(pos == 350){
+					pos2 = pos;
+				}
+			}
+		}
+	}
+	
+
 </script>
+
 </head>
 <body>
-	<h1>JavaScript</h1>
-	<button onclick="myfunction();">버튼</button>
-	<div id="demo"></div>
+
+	<h1>Javascript</h1>
+
+	<button onclick="myFunction1()">대각선</button>
+	<button onclick="myFunction2()">좌우</button>
+	<button onclick="myFunction3()">상하</button>
+	<button onclick="myFunction4()">좌우연속</button>
+	<button onclick="myFunction5()">상하연속</button>
+	<div id="container">
+		<div id="animate"></div>
+	</div>
+
 </body>
 </html>

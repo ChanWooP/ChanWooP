@@ -10,25 +10,42 @@
 	}
 </style>
 <script>
+	var hours;
+	var minutes;
+	
 	function myfunction(){
+		var input = document.getElementById("input").value;
+		hours = input;
+		minutes = 0;
+		
 		myImg();
+		
 		(function() {
 			setInterval(() => {
+				if(minutes == -1){
+					return;
+				}else if (){
+					set
+				}
 				myImg();
-				console.log("test");
 			}, 1000);
 		})();
 	}
+
 	
 	function myImg(){
 		var d = document.getElementsByTagName("img");
-		var date = new Date();
-		var hours = date.getHours();
-		var minutes = date.getMinutes();
+		
+		if(minutes == 0){
+			hours--;
+			minutes = 59;
+		}else{
+			minutes--;
+		}
 		
 		if(hours >= 10){
-			var f = String(hours).substr(0,1)
-			var l = String(hours).substr(1,2)
+			var f = String(hours).substr(0,1);
+			var l = String(hours).substr(1,2);
 			
 			d[0].src = "img/"+ f +".jpg";
 			d[1].src = "img/"+ l +".jpg";
@@ -38,8 +55,8 @@
 		}
 
 		if(minutes >= 10){
-			var f = String(minutes).substr(0,1)
-			var l = String(minutes).substr(1,2)
+			var f = String(minutes).substr(0,1);
+			var l = String(minutes).substr(1,2);
 			
 			d[3].src = "img/"+ f +".jpg";
 			d[4].src = "img/"+ l +".jpg";
@@ -53,7 +70,7 @@
 </head>
 <body>
 	<h1>JavaScript</h1>
-	<input type="text">
+	<input type="text" id="input">
 	<button onclick="myfunction()">버튼</button>
 	<div id="demo">
 		<img src="img/0.jpg">
