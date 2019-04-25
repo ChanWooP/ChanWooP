@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	table {
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	
+	th, td {
+	  text-align: left;
+	  padding: 8px;
+	}
+	
+	tr:nth-child(even){background-color: #f2f2f2}
+	
+	th {
+	  background-color: #4CAF50;
+	  color: white;
+	}
+</style>
+<script>
+	var members = [];
+	window.addEventListener("load", function(){
+		
+		init();
+		
+		var btn = document.getElementById("btn");
+		btn.onclick = function(){
+			memberAdd(this.value);
+		}
+
+	});
+	
+	function init(){
+		members.push({
+			mid:"M01"
+			,name:"홍길동1"
+			,phone:"010-1111-1111"
+			,email:"hong@naver.com"
+		});
+		members.push({
+			mid:"M02"
+			,name:"홍길동2"
+			,phone:"010-1111-1112"
+			,email:"hong2@naver.com"
+		});
+		members.push({
+			mid:"M03"
+			,name:"홍길동3"
+			,phone:"010-1111-1113"
+			,email:"hong3@naver.com"
+		});
+		
+		memberList();
+	}
+	
+	function memberAdd(value){
+		var mids = document.getElementById("mid").value;
+		var names = document.getElementById("name").value;
+		var phones = document.getElementById("phone").value;
+		var emails = document.getElementById("email").value;
+		
+		if(value == "add"){
+			members.push({mid:mids, name:names, phone:phones, email:emails});
+		}else{
+			for(var x=0; x<members.length; ++x){
+				if(members[x].mid == document.getElementById("mid").value){
+					members[x].name = document.getElementById("name").value;
+					members[x].phone = document.getElementById("phone").value;
+					members[x].email = document.getElementById("email").value;
+				}
+			}
+			var btn = document.getElementById("btn");
+			btn.value = "add";
+			btn.innerHTML = "Member Add";
+		}
+		inputClear();
+		memberList();
+		
+	}
+	
+	function memberUpdate(obj){
+		var objs = obj.parentNode.parentNode.childNodes;
+		
+		document.getElementById("mid").value = objs[0].innerText
+		document.getElementById("name").value = objs[1].innerText
+		document.getElementById("phone").value = objs[2].innerText
+		document.getElementById("email").value = objs[3].innerText
+		
+		var btn = document.getElementById("btn");
+		btn.value = "update";
+		btn.innerHTML = "Member Update";
+	}
+	
+	function memberDelete(value){
+		
+		if (confirm(value+"를 정말 삭제하시겠습니까?")) {
+			for(var x=0; x<members.length; ++x){
+				if(members[x].mid == value){
+					members.splice(x,1);
+				}
+			}
+			memberList();
+		} else {
+			
+		}
+	}
+	
+	function memberList(){
+		var result = "";
+		
+		result += "<table>";
+		result += "<tr><th>번호</th><th>이름</th><th>전화번호</th><th>이메일</th><th></th><th></th></tr>";
+		for(var x in members){
+			var temp = members[x];
+			result += "<tr>";
+			result += "<td>" + temp.mid + "</td>";
+			result += "<td>" + temp.name + "</td>";
+			result += "<td>" + temp.phone + "</td>";
+			result += "<td>" + temp.email + "</td>";
+			result += "<td><button class='update'>update</button></td>";
+			result += "<td><button class='delete' value=" + temp.mid + ">delete</button></td>";
+			result += "<tr>";
+		}
+		result += "</table>";
+		result += "총 "+members.length+"명";
+		
+		document.getElementById("demo").innerHTML = result;
+		
+		var bups = document.getElementsByClassName("delete");
+		var bdes = document.getElementsByClassName("update");
+		
+		for(var x in bups){
+			var temp = bups[x];
+
+			temp.onclick = function(){
+				memberDelete(this.value);
+			}
+		}
+		
+		for(var x in bdes){
+			var temp = bdes[x];
+
+			temp.onclick = function(){
+				memberUpdate(this);
+			}
+		}
+		newMember();
+	}
+	
+	function newMember(){
+		var num = members.length+1;
+		var newId = "M"+num;
+		
+		if(newId.length == 2){
+			var f = newId.substr(0,1);
+			var l = newId.substr(1,1);
+			newId = f+0+l;
+		}
+		
+		document.getElementById("mid").value = newId;
+	}
+	
+	function inputClear(){
+		document.getElementById("mid").value = "";
+		document.getElementById("name").value = "";
+		document.getElementById("phone").value = "";
+		document.getElementById("email").value = "";
+	}
+	
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	Mid<input type="text" id="mid" disabled>
+	Name<input type="text" id="name">
+	Phone<input type="text" id="phone">
+	Email<input type="text" id="email">
+	<button id="btn" value="add">Member Add</button>
+	<h1>Member List</h1>
+	<div id="demo"></div>
+</body>
+</html>

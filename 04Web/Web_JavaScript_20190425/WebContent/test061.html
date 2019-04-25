@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style>
+	#demo{
+		padding:10px;
+		background-color:red;
+	}
+</style>
+<script>
+	window.addEventListener("load", function(){
+			
+		//이벤트리스너를 이용한 방식 기본이벤트보다 옵션을 더 많이 적용할 수 있다
+		var btn2 = document.getElementById("btn2");
+		btn2.addEventListener("click", function(event){
+			myfunction();
+			console.log(this);
+			console.log(event);
+		});
+		
+		var btn3 = document.getElementById("btn3");
+		btn3.addEventListener("click", myfunctionExec);
+		
+		var btn4 = document.getElementById("btn4");
+		btn4.addEventListener("click", myfunctionRemove);
+	});
+	
+	function myfunction(){
+		alert("hello");
+	}
+	
+	function myfunctionDemo(){
+		this.innerHTML = Math.random();
+	}
+	
+	function myfunctionExec(){
+		var demo = document.getElementById("demo");
+		demo.addEventListener("mousemove", myfunctionDemo);
+		alert("실행");
+	}
+	
+	function myfunctionRemove(){
+		var demo = document.getElementById("demo");
+		demo.removeEventListener("mousemove", myfunctionDemo);
+		alert("제거");
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button id="btn2">이벤트리스너</button>
+	<button id="btn3">이벤트리스너실행</button>
+	<button id="btn4">이벤트리스너제거</button>
+	<div id="demo"></div>
+</body>
+</html>

@@ -5,14 +5,24 @@
 <title>JavaScript</title>
 <style></style>
 <script>
+	window.onload = function(){
+		//기본 이벤트를 이용한 방식
+		var btn = document.getElementById("btn");
+		btn.onclick = function(event){
+			myfunction();
+			console.log(this);
+			console.log(event);
+		};	
+	};
+	
 	function myfunction(){
-
+		alert("hello");
 	}
 </script>
 </head>
 <body>
 	<h1>JavaScript</h1>
-	<button onclick="myfunction();">버튼</button>
+	<button id="btn">이벤트</button>
 	<div id="demo"></div>
 </body>
 </html>
