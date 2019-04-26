@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript</title>
+<style></style>
+<script>
+
+	var members = [];
+	
+	window.addEventListener("load", function(){
+		init();
+		myfunction();
+	});
+	
+	function Member(mid, name, sub1, sub2, sub3){
+		this.mid = mid;
+		this.name = name;
+		this.sub1 = sub1;
+		this.sub2 = sub2;
+		this.sub3 = sub3;
+		this.tot = function(){
+			return (this.sub1 + this.sub2 + this.sub3);
+		}
+		this.avg = function(){
+			return ((this.sub1 + this.sub2 + this.sub3) / 3).toFixed(1);
+		}
+	}
+	
+	function init(){
+		members.push(new Member("M01", "hong1", 80, 80, 80));
+		members.push(new Member("M02", "hong2", 60, 60, 80));
+		members.push(new Member("M03", "hong3", 80, 70, 80));
+	}
+	
+	function myfunction(){
+		var result = "";
+		
+		result += "<table border='1'>";
+		result += "<tr><th>번호</th><th>이름</th><th>과목1</th><th>과목2</th><th>과목3</th><th>총점</th><th>평균</th></tr>";
+		for(var a in members){
+			var temp = members[a];
+			result += "<tr>";
+			result += "<td>"+ temp.mid +"</td>";
+			result += "<td>"+ temp.name +"</td>";
+			result += "<td>"+ temp.sub1 +"</td>";
+			result += "<td>"+ temp.sub2 +"</td>";
+			result += "<td>"+ temp.sub3 +"</td>";
+			result += "<td>"+ temp.tot() +"</td>";
+			result += "<td>"+ temp.avg() +"</td>";
+			result += "</tr>";
+		}
+		result += "</table>";
+		
+		document.getElementById("demo").innerHTML = result;
+	}	
+</script>
+</head>
+<body>
+	<h1>JavaScript</h1>
+	<button id="btn">버튼</button>
+	<div id="demo"></div>
+</body>
+</html>
