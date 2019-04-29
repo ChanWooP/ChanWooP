@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+	div{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+	//toggle : show, hide
+	$(document).ready(function(){
+		$("#btn").on("click", function(){
+			$("#demo").toggle("fast"); // 작아지면서 사라짐
+		});
+		
+		$("#btn2").on("click", function(){
+			$("#demo").fadeToggle("fast"); // 희미해지면서 사라짐
+		});
+		
+		$("#btn3").on("click", function(){
+			$("#demo").slideToggle("fast"); // 슬라이드 처럼 사라짐
+		}); 
+	});
+	
+	function myFunction(){
+		
+	}
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="btn">버튼</button>
+	<button id="btn2">버튼</button>
+	<button id="btn3">버튼</button>
+	<div id="demo">Test</div>
+</body>
+</html>

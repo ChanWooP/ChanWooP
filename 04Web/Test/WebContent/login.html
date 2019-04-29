@@ -5,8 +5,24 @@
 <title>쌍용강북교육센터</title>
 <style>
 	#demo{
-		margin-top: 25%;
-		margin-left: 50%;
+		position:absolute; 
+		top:50%; left:47%; 
+		width:400px; 
+		height:200px; 
+		overflow:hidden; 
+		background-color:#FC0; 
+		margin-top:-150px; 
+		margin-left:-100px;
+	}
+	
+	#demo2{
+		margin: 10%;
+		background-color: blue;
+	}
+	
+	input{
+		width: 200px;
+		height: 50px;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,6 +37,13 @@
 </script>
 </head>
 <body>
-	<div id="demo">ㄴss</div>
+	<div id="demo">
+		<div id="demo2">
+			<div>
+			<input type="text" id="id"><br>
+			<input type="password" id="password">
+			</div>
+		</div>
+	</div>
 </body>
 </html>
