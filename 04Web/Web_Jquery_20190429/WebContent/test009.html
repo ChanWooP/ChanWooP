@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.siblings * { 
+  display: block;
+  border: 2px solid lightgrey;
+  color: lightgrey;
+  padding: 5px;
+  margin: 15px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		//$("#ps").find("p").first().css({"color": "red", "border": "2px solid red"}); // 자손 중 p이면서 첫번 째
+		//$("#ps").find("p").last().css({"color": "red", "border": "2px solid red"}); // 자손 중 p이면서 두번 째
+		//$("#ps").find("p").eq(0).css({"color": "red", "border": "2px solid red"}); // 자손 중 p이면서 0번째
+		//$("#ps").find("p").filter(".ppp").css({"color": "red", "border": "2px solid red"}); // 자손 중 p이면서 해당 것 만
+		$("#ps").find("p").not(".ppp").css({"color": "red", "border": "2px solid red"}); // 자손 중 p이면서 해당 것 외에
+	}); 
+</script>
+</head>
+<body class="siblings">
+
+<div id="ps">div (parent)
+	<div>
+	  <p>p</p>
+	  <span>span</span>
+	  <h2>h2</h2>
+	  <p class="ppp">p</p>
+	  <h3>h3</h3>
+	  <p>p</p>
+	</div>
+</div>
+
+</body>
+</html>

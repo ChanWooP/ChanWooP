@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+	#demo{
+		background-color:red;
+		min-height: 150px;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		$("#append").on("click", function(){
+			var txt1 = $("<p></p>").text("Text append");
+			 $("#demo").append(txt1); // 선택한요소의 자식요소 앞에 내용 삽입
+		});
+		
+		$("#prepend").on("click", function(){
+			var txt1 = $("<p></p>").text("Text prepend");
+			 $("#demo").prepend(txt1); // 선택한요소의 자식요소 뒤에 내용 삽입
+		});
+		
+		$("#after").on("click", function(){
+			var txt1 = $("<p></p>").text("Text after");
+			 $("#demo").after(txt1); // 선택한요소의 앞에 내용 삽입
+		});
+		
+		$("#before").on("click", function(){
+			var txt1 = $("<p></p>").text("Text before");
+			 $("#demo").before(txt1); // 선택한요소의 뒤에 내용 삽입
+		});
+		
+		$("#remove").on("click", function(){
+			 $("#demo").remove(); // 자기 자신 제거
+		});
+		
+		$("#empty").on("click", function(){
+			 $("#demo").empty(); // 자기 자신의 자식 제거
+		});
+	});
+	
+	function myFunction(){
+		
+	}
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="append">append</button>
+	<button id="prepend">prepend</button>
+	<button id="after">after</button>
+	<button id="before">before</button>
+	<button id="remove">remove</button>
+	<button id="empty">empty</button>
+	<div id="demo"><p>Text</p></div>
+</body>
+</html>

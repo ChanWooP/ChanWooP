@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+    .cl{
+        background-color: red;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#all").on("change",function(){
+            if($(this).is(":checked")){
+                $(".chk").prop("checked",true);
+                $(".chk").parents("tr").addClass("cl");
+            }else{
+                $(".chk").prop("checked",false);
+                $(".chk").parents("tr").removeClass("cl");
+            }
+        }); 
+        
+        $(".chk").on("change",function(){
+            if($(this).is(":checked")){
+                $(this).parent().parent().addClass("cl");
+            }else{
+                $(this).parent().parent().removeClass("cl");
+            }
+            
+        });
+    });
+    
+    function myFunction(){
+        
+    }
+</script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>
+            <input type="checkbox" id="all">
+            </th>    
+            <th>
+            이름
+            </th>    
+            <th>
+            전화번호
+            </th>    
+        </tr>
+        <tr>
+            <td>
+            <input type="checkbox" class="chk">
+            </td>    
+            <td>
+            홍길동
+            </td>    
+            <td>
+            010-1111-1111
+            </td>    
+        </tr>
+                <tr>
+            <td>
+            <input type="checkbox" class="chk">
+            </td>    
+            <td>
+            홍길동2
+            </td>    
+            <td>
+            010-1111-1112
+            </td>    
+        </tr>
+    </table>
+</body>
+</html>
