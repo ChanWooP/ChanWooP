@@ -16,14 +16,30 @@
 	}
 	
 	#demo2{
-		margin: 10%;
-		background-color: blue;
+		margin: 20px;
+		background-color: blue;	
 	}
 	
+	#demo3{
+		display: inline-block;
+		width: 250px;
+		height:150px;
+		background-color:red;
+	}
+	
+	#demo4{
+		display: inline-block;
+		width: 100px;
+		height:150px;
+		background-color:black;
+	}
+
 	input{
 		width: 200px;
-		height: 50px;
+		display:inline-block;
 	}
+	
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -32,17 +48,24 @@
 	});
 	
 	function myFunction(){
-		
+		/*
+		<div id="demo3">
+				<input type="text" id="id">
+				<input type="password" id="password">
+			</div>
+			<div id="demo4">
+				<button>sd</button>
+			</div>
+		*/
 	}
 </script>
 </head>
 <body>
 	<div id="demo">
 		<div id="demo2">
-			<div>
-			<input type="text" id="id"><br>
-			<input type="password" id="password">
+			<div id="demo3">
 			</div>
+			<div id="demo4"></div>
 		</div>
 	</div>
 </body>
