@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+	.style01{
+		color : orange;
+		border : 1px;
+		font-size : 15em;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		/*
+		$("#demo").mouseenter(function(){ 
+			$(this).addClass("style01");
+		});
+		
+		$("#demo").mouseleave(function(){
+			$(this).removeClass("style01");
+		});
+		*/
+		
+		$("#demo").hover(
+		function(){ 
+			$(this).addClass("style01");
+		}, 
+		function(){
+			$(this).removeClass("style01");
+		});
+		
+	});
+	
+	function myFunction(){
+		
+	}
+</script>
+
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="btn1">add</button>
+	<button id="btn2">remove</button>
+	<div id="demo">Test</div>
+</body>
+</html>
