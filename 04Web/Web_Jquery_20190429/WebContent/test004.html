@@ -24,12 +24,22 @@
 		});
 		*/
 		
+		
+		//mouse enter, leave 이벤트 대체
 		$("#demo").hover(
 		function(){ 
 			$(this).addClass("style01");
 		}, 
 		function(){
 			$(this).removeClass("style01");
+		});
+		
+		$("input[type=text]").focus(function(){
+			$(this).css("background-color", "red");	
+		});
+		
+		$("input[type=text]").blur(function(){
+			$(this).css("background-color", "white");	
 		});
 		
 	});
@@ -44,6 +54,8 @@
 	<h1>jQuery</h1>
 	<button id="btn1">add</button>
 	<button id="btn2">remove</button>
+	이름<input type="text" name="name">
+	전화번호<input type="text" name="tel">
 	<div id="demo">Test</div>
 </body>
 </html>
