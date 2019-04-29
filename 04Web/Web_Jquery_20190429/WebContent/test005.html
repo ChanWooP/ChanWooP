@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+	#demo{
+		padding: 20px;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#demo").on("mousemove",function(){
+			$(this).text(Math.random());
+		});
+		
+		$("#btn").on("click",function(){
+			$("#demo").off("mousemove");
+		});
+		
+		$("#btn2").on("click",function(){
+			$("#demo").on("mousemove",function(){
+				$(this).text(Math.random());
+			});
+		});
+	});
+	
+	function myFunction(){
+		
+	}
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="btn">버튼</button>
+	<button id="btn2">버튼2</button>
+	<div id="demo"></div>
+</body>
+</html>
