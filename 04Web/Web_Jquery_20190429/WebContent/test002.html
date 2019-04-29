@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style></style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("button#btn").click(function() {
+			$("div").hide();
+		});
+	
+		$(document.getElementById("btn2")).click(function() {
+			$("div").show();
+		});
+	});
+	
+	function myFunction(){
+		
+	}
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="btn">버튼</button>
+	<button id="btn2">버튼2</button>
+	<div id="demo">sd</div>
+</body>
+</html>
