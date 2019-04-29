@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style></style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#btn").click(function() {
+			console.log($("#demo").text()); // 텍스트만
+			console.log($("#demo").html()); // 태그포함
+			
+			$("#demo").html("<p>sdsd</p>"); // html 해당 값으로 변경(태그 필요 시)
+			console.log($("#demo").html());
+			
+			$("#demo").text("sds"); // html 해당 값으로 변경(태그 필요없을 시)
+			console.log($("#demo").html()); 
+			
+			$("#demo2 img").attr("src", "img/3.png"); // 특정 속성만 바꾸고 싶을 때
+			
+			console.log($("#demo2 img").val()); // 밸류값 가져오기
+			$("#demo2 img").val("imgs"); // 밸류값 수정 
+			console.log($("#demo2 img").val()); 
+			
+			$("#demo2 img").attr({ // JSON을 이용한 방법 여러개의 속성을 바꾸고 싶을 때
+				"src" : "img/4.png"
+				,"width" : "500"
+			});
+			
+			$("#demo3").css("color", "red").slideUp(2000).slideDown(2000); // 슬라이드처럼 보이게하고 시간차를 주어서 설정
+			
+			$("#demo4").css({
+				"color":"red"
+				,"border:":"1px"
+				,"background":"blue"
+			}); // 여러개 지정
+			
+		});
+	});
+	
+	function myFunction(){
+	}
+	
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<button id="btn">버튼</button>
+	<div id="demo">
+		test
+		<p>test</p>
+	</div>
+	<div id="demo2">
+		<img src="img/2.png">
+	</div>
+	<div id="demo3">
+		Text
+	</div>
+	<div id="demo4">
+		Text
+	</div>
+</body>
+</html>
