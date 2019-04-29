@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style></style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("form").on("submit", function(event){
+			console.log("evnet");
+			event.preventDefault(); // 새로고침 하지 마시오
+		});
+		
+		$(document).mousemove(function(event){ 
+			    $("#demo").text("X: " + event.pageX + ", Y: " + event.pageY); 
+		});
+	});
+	
+</script>
+</head>
+<body>
+	<form>
+		<div id="demo" style="width:200px; height:300px;">Test</div>
+		이름<input type="text" name="name">
+		전화번호<input type="text" name="tel">
+		<input type="submit">
+	</form>
+</body>
+</html>
