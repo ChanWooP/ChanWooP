@@ -5,21 +5,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<style></style>
+<style>
+	.th01 th{
+		background-color:red;
+	}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script>
 	$(document).ready(function(){
-	
+		
 	});
 </script>
 </head>
 <body>
 	<div class="container">
-		<h1>My First Bootstrap Page</h1>
-		<!-- 여러개를 적용하고 싶으면 한칸뛰고 적으면 됨 class="클래스명1 클래스명2 ..." -->
-		<p class="bg-info text-center">This is some text.</p> 
-		<button>as</button>
+		<h1>BootStrap</h1>
+		<table class="table table-striped th01">
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+			</tr>
+			<tr>
+				<td>M01</td>
+				<td>홍길동</td>
+			</tr>
+			<tr>
+				<td>M01</td>
+				<td>홍길동</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
