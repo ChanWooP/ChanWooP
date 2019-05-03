@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page import="java.sql.*, com.connection.*"%>
 <%
-
+	request.setCharacterEncoding("utf-8");
 	String mid_ = request.getParameter("mid_");
 	String name_ = request.getParameter("name_");
 	String phone = request.getParameter("phone");
@@ -24,7 +24,7 @@
 		stmt.setString(3, phone);
 		stmt.setString(4, email);
 		
-		stmt.executeUpdate();
+		int count = stmt.executeUpdate();
 		
 		sb.append("입력성공!");
 	} catch (Exception e) {
