@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ page import="java.sql.*, com.connection.*" %>
+<%@ page import="java.sql.*, com.connection.*, java.util.*" %>
+<%
+	//name 속성(value 값을 가져옴)
+	String email = request.getParameter("email");
+	System.out.println(email);
+	
+	// 해당 name 속성을 가진 것들을 모두 가져옴(value 값을 가져옴)
+	// checkbox에서 많이 쓰임
+	String[] pwd = request.getParameterValues("pwd"); 
+	System.out.println(Arrays.toString(pwd));
+	
+	// 수신받은 전체 데이터를 받는다(value 값을 가져옴)
+	Map<String, String[]> map = request.getParameterMap(); 
+	System.out.println(Arrays.toString(map.get("rememberme")));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +33,7 @@
 </head>
 <body>
 	<div class="container">
-	
+		
 	</div>
 </body>
 </html>
