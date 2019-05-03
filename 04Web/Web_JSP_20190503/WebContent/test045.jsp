@@ -88,7 +88,7 @@
 		<div class="panel panel-default">
 		<div class="panel-heading">회원입력</div>
 			<div class="panel-body">
-				<form action="test044_send.jsp" method="post">
+				<form action="test045.jsp" method="post">
 					<div class="form-group">
 						<label for="mid_">mid_:</label> <input type="text"
 							class="form-control" id="mid_" name="mid_">
