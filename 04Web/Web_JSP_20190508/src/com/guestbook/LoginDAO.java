@@ -20,7 +20,7 @@ public class LoginDAO {
  
          conn = MySQLConnection80.connect();
  
-         String sql = "SELECT id_, pw_ grade_, name_, phone_, email_\r\n" + "   FROM login l, members m\r\n"
+         String sql = "SELECT id_, pw_ grade_, name_, phone, email\r\n" + "   FROM login l, members m\r\n"
                + "   WHERE l.id_ = m.mid_\r\n" + "   AND id_ = ?\r\n" + "   AND pw_ = ?\r\n" + "   AND grade_ = ?";
          stmt = conn.prepareStatement(sql);
  
@@ -33,8 +33,8 @@ public class LoginDAO {
          while (rs.next()) {
  
             String name_ = rs.getString("name_");
-            String phone_ = rs.getString("phone_");
-            String email_ = rs.getString("email_");
+            String phone_ = rs.getString("phone");
+            String email_ = rs.getString("email");
  
             result = new Login(id_, pw_, grade_, name_, phone_, email_);
  
