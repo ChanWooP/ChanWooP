@@ -1,0 +1,117 @@
+/*로그인, 로그아웃 테이블*/
+create table Login
+   (
+      id_ VARCHAR(4), /*사번(mid_)기준. FK 지정*/
+      pw_ VARCHAR(20),
+      grade_ INT
+   );
+   
+   /*회원정보 테이블*/
+   create table Members
+   (
+      mid_ varchar (10) primary key,
+      name_ varchar (20),
+      phone_ varchar (20),
+      email_ varchar (50)
+   );
+ 
+ create table openSubject (
+	subjectid_ VARCHAR(4) /*PK 과목번호*/
+	,sname_ varchar (20)
+	,sdate_ varchar (50)   
+);
+   /*과목 정보 테이블*/
+create table Subjectinfo
+   (
+      sid_ varchar (4) /*PK 시험번호*/
+      ,subjectid_ VARCHAR(4) /*FK 과목번호*/
+      ,scount_ INT /*1차, 2차, 3차, ...*/
+	  ,examcount_ INT /*시험문제 갯수*/
+      ,status_ varchar(2) /*예정(default), 진행, 종료*/
+   );
+  /*시험문제 테이블*/
+   create table Exam
+   (
+      eid_ varchar (4) /*PK*/
+      ,sid_ varchar (4) /*PK, FK*/
+      ,etitle_ VARCHAR(100) /*문제*/
+      ,econtent_ varchar (100) /*보기*/
+      ,eanswer_ varchar (1) /*정답*/
+   );
+  /*수강생 답안 테이블 */
+   CREATE TABLE Stuanswer 
+   (
+	mid_ VARCHAR(4) /*PK, FK 수강생 번호*/
+	,sid_ varchar (4) /*PK, FK 시험번호*/
+    ,eid_ varchar (4) /*PK, FK 시험문제 번호*/
+    ,answer_ VARCHAR(1) /*수강생 제출 답*/
+   );
+ /*수강생 점수 테이블 */
+   CREATE TABLE Stuscore 
+   (
+	mid_ VARCHAR(4) /*PK, FK 수강생 번호*/
+	,sid_ varchar (4) /*PK, FK 시험번호*/
+    ,scount_ INT /*수강생 점수*/
+   );
+ALTER TABLE openSubject
+    ADD CONSTRAINT openSubject_subjectid_pk 
+    primary key(subjectid_);
+ALTER TABLE Subjectinfo
+    ADD CONSTRAINT Subjectinfo_sid_pk 
+    primary key(sid_);
+    
+    ALTER TABLE Subjectinfo
+    ADD CONSTRAINT Subjectinfo_fk 
+    FOREIGN KEY (subjectid_) references openSubject(subjectid_);
+    
+   ALTER TABLE Exam
+    ADD CONSTRAINT Exam_pk 
+    primary key(eid_, sid_);
+   
+   ALTER TABLE Exam
+    ADD CONSTRAINT Exam_fk 
+    FOREIGN KEY (sid_) references Subjectinfo(sid_);
+    
+  ALTER TABLE Stuanswer
+    ADD CONSTRAINT Stuanswer_pk 
+    primary key(mid_, eid_, sid_);
+   
+   ALTER TABLE Stuanswer
+    ADD CONSTRAINT Stuanswer_mid_fk 
+    FOREIGN KEY (mid_) references Members(mid_);
+    
+	ALTER TABLE Stuanswer
+    ADD CONSTRAINT Stuanswer_sid_fk 
+    FOREIGN KEY (sid_) references Subjectinfo(sid_);
+    
+    ALTER TABLE Stuanswer
+    ADD CONSTRAINT Stuanswer_eid_fk 
+    FOREIGN KEY (eid_) references Exam(eid_);
+   
+   ALTER TABLE Stuscore
+    ADD CONSTRAINT Stuscore_pk 
+    primary key(mid_, sid_);
+   
+   ALTER TABLE Stuscore
+    ADD CONSTRAINT Stuscore_mid_fk 
+    FOREIGN KEY (mid_) references Members(mid_);
+    
+	ALTER TABLE Stuscore
+    ADD CONSTRAINT Stuscore_sid_fk 
+    FOREIGN KEY (sid_) references Subjectinfo(sid_);
+
+ INSERT INTO openSubject (subjectid_, sname_, sdate_) 
+   VALUES ("SJ01", "DataBase", "20190301~20190401");
+
+
+INSERT INTO Subjectinfo (sid_, subjectid_, scount_, examcount_, status_) 
+   VALUES ("S001", "SJ01", 1, 0, "예정");
+
+
+
+
+
+
+
+
+
