@@ -7,7 +7,7 @@ public class MySQLConnection80 {
  
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/chanwu"
+    static final String DB_URL = "jdbc:mysql://211.238.142.56:3306/chanwu"
             + "?user=chanwu&password=1234&useSSL=false&serverTimezone=UTC";
  
     private static Connection conn;
