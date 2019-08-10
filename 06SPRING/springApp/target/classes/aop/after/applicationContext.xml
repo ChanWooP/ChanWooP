@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<bean id="userServiceTarget" class="aop.after.UserServiceImpl"/>
+	
+	<!-- Advice : 공통사항을 가지고 있는 클래스 -->
+	<bean id="afterAdvice" class="aop.after.AfterLogAdvice"/>
+	
+	<!-- Advisor 설정 : Pointcut도 동시에 설정 -->
+	<bean id="myAdvisor" 
+	   class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+	   <property name="advice" ref="afterAdvice"/>
+	   <property name="patterns">
+	   		<list>
+	   			<value>.*save.*</value>
+	   			<value>.*write.*</value>
+	   		</list>
+	   </property>
+	</bean>
+
+	<!-- AOP 적용 -->
+	<bean id="userService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="userServiceTarget"/>
+		<property name="interceptorNames">
+			<list>
+				<value>myAdvisor</value>
+			</list>
+		</property>
+	</bean>
+ 
+</beans>  

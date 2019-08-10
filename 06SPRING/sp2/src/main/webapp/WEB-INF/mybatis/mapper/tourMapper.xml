@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tour">
+	<select id="listTsido" resultType="com.sp.tour.Tsido">
+		SELECT snum, sido FROM tsido
+	</select>
+	<select id="listTcity" parameterType="Integer" resultType="com.sp.tour.Tcity">
+		SELECT cnum, snum, city FROM tcity WHERE snum = #{num}
+	</select>
+	<insert id="insertTsido" parameterType="String">
+		INSERT INTO tsido(snum, sido)
+		VALUES(tsido_seq.NEXTVAL, #{sido})
+	</insert>
+	<delete id="deleteTsido" parameterType="Integer">
+		DELETE FROM tsido WHERE snum = #{num}
+	</delete>
+	<insert id="insertTcity" parameterType="map">
+		INSERT INTO tcity(snum, cnum, city)
+		VALUES(#{snum}, tcity_seq.NEXTVAL, #{city})
+	</insert>
+	<delete id="deleteTcity" parameterType="Integer">
+		DELETE FROM tcity WHERE cnum = #{num}
+	</delete>
+</mapper>

@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.user</groupId>
+  <artifactId>springapp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<spring-framework-version>4.3.24.RELEASE</spring-framework-version>
+  	<org-aspectj-version>1.9.1</org-aspectj-version>
+  </properties>
+  <!-- 해당 jar 파일을 다운 받겠다는 의미 -->
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${spring-framework-version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjrt</artifactId>
+	    <version>${org-aspectj-version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
+ 	  <dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+	  </dependency>
+	
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>${org-aspectj-version}</version>
+	</dependency>
+	
+  </dependencies>
+  
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+ 
+ 	<bean id="userService" class="com.user4.UserServiceImpl">
+ 		<property name="name" value="spring"/>
+ 		<property name="tel" value="010-0000-0000"/>
+ 		<property name="age" value="20"/>
+ 	</bean>
+ 	
+ 	<!-- 의존관계 자동설정
+ 		byName : 프로퍼티와 동일한 이름을 갖는 빈 객체를 설정(프로퍼티는 setter 필요)
+ 		byType : 프로퍼티의 타입과 동일한 타입을 같는 빈 객체를 설정(프로퍼티는 setter 필요)
+ 		constructor : 생성자 파라미터 타입과 동일한 타입을 갖는 빈객체를 생성자에 전달
+ 	 -->
+ 	
+ 	<bean id="userBean" class="com.user4.UserBean"
+ 		autowire="constructor"/>
+ 	
+ 	<bean id="userBean2" class="com.user4.UserBean2"
+ 		autowire="byName"/>
+ 
+</beans>  

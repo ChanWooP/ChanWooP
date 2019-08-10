@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+* {
+	padding: 0; margin: 0;	
+}
+
+body {
+	font-family: 맑은 고딕, 돋움;
+	font-size: 14px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: tomato;
+	text-decoration: underline;
+}
+
+#main-layout {
+	width: 700px;
+	margin: 20px auto 0;
+}
+
+#header {
+	height: 35px; line-height: 35px;
+	text-align: center;
+	border: 1px solid #cccccc; 
+}
+
+#header li {
+	float: left;
+	list-style: none;
+	margin: 0; padding: 0;
+	padding-left: 20px; padding-right: 20px;
+}
+
+.menuItem {
+	display: inline-block;
+	color: #333333;
+	text-decoration: none;
+}
+
+.menuItem:hover, .menuItem:active {
+	color: #333333;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+.menuItem-is-disabled {
+	font-weight: 700;
+	pointer-events:none;
+}
+
+#body-content {
+	clear: both;
+	min-height: 500px;
+	padding: 5px;
+}
+
+#footer {
+	height: 35px; line-height: 35px;
+	text-align: center;
+}

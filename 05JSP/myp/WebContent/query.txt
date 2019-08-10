@@ -1,0 +1,88 @@
+CREATE TABLE CarBrand(
+    BrandId VARCHAR2(10) NOT NULL
+    ,BrandName VARCHAR2(20) NOT NULL
+    ,BrandImage VARCHAR2(100)
+);
+ALTER TABLE CarBrand ADD CONSTRAINT CarBrand_BrandId_PK PRIMARY KEY (BrandId);
+
+CREATE TABLE Car(
+    BrandId VARCHAR2(10) NOT NULL
+    ,CarId VARCHAR2(10) NOT NULL
+    ,CarName VARCHAR2(20) NOT NULL
+    ,CarContent VARCHAR2(3000) NOT NULL
+    ,CarImage VARCHAR2(100)
+);
+ALTER TABLE Car ADD CONSTRAINT Car_CarId_PK PRIMARY KEY(CarId);
+ALTER TABLE Car ADD CONSTRAINT Car_BrandId_FK FOREIGN KEY(BrandId)
+    REFERENCES CarBrand(BrandId);
+    
+create table CarBody(
+    BodyId VARCHAR2(10) NOT NULL
+    ,BodyName VARCHAR2(20) NOT NULL
+);
+ALTER TABLE CarBody ADD CONSTRAINT CarBody_BodyId_PK PRIMARY KEY(BodyId);
+
+create table CarDetail(
+    CarId VARCHAR2(10) NOT NULL
+    ,BodyId VARCHAR2(10) NOT NULL
+    ,DetailID VARCHAR2(10) NOT NULL
+    ,DetailName VARCHAR2(30) NOT NULL
+    ,DetailPrice NUMBER NOT NULL
+);
+ALTER TABLE CarDetail ADD CONSTRAINT CarDetail_DetailID_PK PRIMARY KEY(DetailID);
+ALTER TABLE CarDetail ADD CONSTRAINT CarDetail_CarId_FK FOREIGN KEY(CarId)
+    REFERENCES Car(CarId);
+ALTER TABLE CarDetail ADD CONSTRAINT CarDetail_BodyId_FK FOREIGN KEY(BodyId)
+    REFERENCES CarBody(BodyId);
+
+CREATE TABLE User_(
+    UserId VARCHAR2(20) NOT NULL
+    ,UserPw VARCHAR2(20) NOT NULL
+    ,UserNAme VARCHAR2(20) NOT NULL
+);
+ALTER TABLE User_ ADD CONSTRAINT User_UserId_PK PRIMARY KEY(UserId);
+    
+CREATE TABLE BoardGallery(
+    BoardId VARCHAR2(20) not null
+    ,UserId VARCHAR2(20) NOT NULL
+    ,Subject VARCHAR2(50) not null
+    ,Content_ VARCHAR2(3000) NOT NULL
+    ,IpAddr VARCHAR2(30) not null
+    ,hitCount NUMBER default 0
+    ,Created DATE default sysdate
+    ,GalleryImage VARCHAR2(100) 
+);
+ALTER TABLE BoardGallery ADD CONSTRAINT BoardGallery_BoardId_PK PRIMARY KEY(BoardId);
+alter table BoardGallery add constraint BoardGallery_UserId_Fk FOREIGN KEY(UserId)
+    REFERENCES User_(UserId);
+
+
+CREATE SEQUENCE BRAND_SEQ
+    START WITH 1
+    INCREMENT BY 1;    
+    
+CREATE SEQUENCE CAR_SEQ
+    START WITH 1
+    INCREMENT BY 1;   
+    
+CREATE SEQUENCE DETAIL_SEQ
+    START WITH 1
+    INCREMENT BY 1;
+    
+INSERT INTO carbody(bodyid, bodyName)
+VALUES(1, '����');
+
+INSERT INTO carbody(bodyid, bodyName)
+VALUES(2, '������');
+
+INSERT INTO carbody(bodyid, bodyName)
+VALUES(3, '����');
+
+INSERT INTO carbody(bodyid, bodyName)
+VALUES(4, 'SUV');
+
+commit;
+---------------------------------------------------------------------------
+CREATE SEQUENCE BBS_SEQ
+    START WITH 1
+    INCREMENT BY 1;

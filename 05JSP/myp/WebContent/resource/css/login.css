@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.loginp{
+	text-align:right;
+	cursor:pointer;
+}
+
+.login{
+	background-color: white;
+	padding: 20px;
+	border-radius: 2em;
+	border: 5px solid #ECCEF5;
+	color:gray;
+	font-weight:bold;
+	margin:100px auto; 
+	width:360px;
+}
+
+.logo{
+	margin-left: 30px;
+}
+
+.login_main{
+	margin-top:10px;
+}

@@ -1,0 +1,119 @@
+1. 테이블 및 시퀀스 작성
+  - 두개의 테이블 작성
+   -----------------------------------------------
+   첫번째 테이블(tcity)
+      - 컬럼 : snum, sido
+      - 제약조건
+         snum : 기본키, sido : UNIQUE
+   -----------------------------------------------
+   번호(snum)  시도(sido)
+   1               서울
+   2               경기
+   3               인천
+
+  -----------------------------------------------
+  두번째 테이블(tsido)
+      - 컬럼 : cnum, tcity, city
+      - 제약조건
+        cnum : 기본키, snum : tcity 테이블 snum의 참조키
+        snum+city : UNIQUE
+  -----------------------------------------------
+  cnum        snum         city 
+  도시번호   시도번호     도시
+  1           1                 용산구
+  2           1                 강남구
+  3           2                 수원시
+  4           2                 성남시
+  5           3                 연수구
+  6           3                 부평구
+  7           3                 중구
+
+  -----------------------------------------------
+  - 두개의 시퀀스 작성
+     tsido_seq, tcity_seq
+
+-----------------------------------------------
+2. 프로그램 작성
+  1) 메인 화면
+      uri : cp/tour/main
+      jsp : /WEB-INF/view/tour/main.jsp
+
+      -- 화면
+         도시선택(cp/tour/tour)
+	 도시관리(cp/tour/manage)
+
+  2) 도시선택
+      uri : cp/tour/tour
+      jsp : /WEB-INF/view/tour/tour.jsp
+
+      -- 선택 화면
+        [::시도선택::▼ ] [::도시선택::▼ ] [확인]
+
+        실행과 동시에 "시도선택" 부분에는 tcity 테이블의 시도(sido)를 불러오며, ajax(JSON)를 이용하여 시도를 선택하면 해당 도시를 "도시선택" 부분에 불러오도록 작성
+
+  3) 도시관리
+      uri : cp/tour/manage
+      jsp : /WEB-INF/views/tour/manage.jsp
+
+      -- 매니지 화면
+        ** 시도 및 도시 관리
+            [           ]   [시도추가]
+            서울      삭제
+                  [           ]  [도시추가]
+                  용산구     삭제
+                  강남구     삭제
+            경기      삭제
+            인천      삭제
+
+      -- uri
+          시도추가 : cp/tour/insertSido
+          시도삭제 : cp/tour/deleteSido
+
+          도시추가 : cp/tour/insertCity
+          도시삭제 : cp/tour/deleteCity
+
+      -- 주의사항
+          - 프로그램 실행과 동시에 tcity 테이블의 시도(sido)를 출력한다.
+          - 시도(예:서울)을 클릭하면 시도(예:서울)의 도시를 추가하거나 삭제하는 화면이 보이며, 다시 클릭하면 보이지 않도록 구현한다.
+           - 추가 및 삭제 작업은 AJAX(JSON)을 이용하여 작성 한다.
+           - 제약조건 위반으로 추가 삭제가 죄지 않는 경우 alert() 창으로  실패 메시지를 출력 한다.
+
+
+//********************************
+-----------------------------------------------
+CREATE TABLE tsido (
+   snum NUMBER NOT NULL
+   ,sido VARCHAR2(30) NOT NULL
+   ,CONSTRAINT pk_tsido_snum PRIMARY KEY(snum)
+   ,CONSTRAINT uk_tsido_sido UNIQUE (sido)
+);
+CREATE SEQUENCE tsido_seq;
+
+CREATE TABLE tcity (
+   cnum NUMBER NOT NULL
+   ,snum NUMBER NOT NULL
+   ,city VARCHAR2(30) NOT NULL
+   ,CONSTRAINT pk_tcity_cnum PRIMARY KEY(cnum)
+   ,CONSTRAINT uk_tcity_city UNIQUE (snum, city)
+   ,CONSTRAINT fk_tcity_snum FOREIGN KEY(snum)
+                  REFERENCES tsido(snum) ON DELETE CASCADE
+);
+CREATE SEQUENCE tcity_seq;
+
+-----------------------------------------------
+INSERT  INTO tsido(snum, sido) VALUES (tsido_seq.NEXTVAL, '서울');
+INSERT  INTO tsido(snum, sido) VALUES (tsido_seq.NEXTVAL, '경기');
+INSERT  INTO tsido(snum, sido) VALUES (tsido_seq.NEXTVAL, '인천');
+
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 1, '강남구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 1, '종로구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 1, '영등포구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 1, '서초구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 1, '용산구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 2, '수원시');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 2, '성남시');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 2, '고양시');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 3, '부평구');
+INSERT  INTO tcity(cnum, snum, city) VALUES (tcity_seq.NEXTVAL, 3, '중구');
+
+COMMIT;

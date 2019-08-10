@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<!-- 컬렉션 타입 -->
+ 	<bean id="userService" class="com.user3.UserServiceImpl">
+ 		<property name="name" value="JAVA"/>
+ 		<property name="address">
+ 			<map>
+ 				<entry>
+ 					<key><value>스프링</value></key>
+ 					<value>서울</value> <!-- <ref bean="객체아이디"/> -->
+ 				</entry>
+ 				<entry key="서블릿" value="경기"/>
+ 				<!-- <entry key-ref="객체" value-ref="객체"/> -->
+ 			</map>
+ 		</property>
+ 		<property name="hobby">
+ 			<list>
+ 				<value>운동</value> <!-- <ref bean="객체아이디"/> -->
+ 				<value>게임</value>
+ 			</list>
+ 		</property>
+ 	</bean>
+ 	
+	<bean id="userBean" class="com.user3.UserBean">
+		<property name="userService" ref="userService"/>
+	</bean>
+ 	
+</beans>  
