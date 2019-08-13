@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.body-container{
+	margin: 0 auto;
+	width:1300px;
+}
+
+.board{
+	width:100%;
+	text-align:center;
+	border-spacing:0px;
+}
+
+.theader{
+	background-color:gray;
+}
+
+.btnAddPerson{
+	float:right;
+	margin:5px;
+}
+
+.btnUpPerson{
+	float:right;
+	margin:5px;
+}
+
+.btnDelPerson{
+	float:right;
+	margin:5px;
+}
