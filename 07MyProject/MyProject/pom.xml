@@ -39,7 +39,7 @@
 		<commons-dbcp2.version>2.6.0</commons-dbcp2.version>
 		<commons-pool2.version>2.6.2</commons-pool2.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<!-- org.json -->
 		<json.version>20180813</json.version>
 	</properties>
