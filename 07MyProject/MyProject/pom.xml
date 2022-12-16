@@ -21,7 +21,7 @@
 
 
 		<!-- Spring -->
-		<spring-framework.version>4.3.25.RELEASE</spring-framework.version>
+		<spring-framework.version>5.2.20.RELEASE</spring-framework.version>
 		<org-aspectj.version>1.9.4</org-aspectj.version>
 
 		<!-- Logging -->
